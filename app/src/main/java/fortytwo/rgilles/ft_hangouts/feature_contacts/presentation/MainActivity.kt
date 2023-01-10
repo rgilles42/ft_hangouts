@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts
+package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import fortytwo.rgilles.ft_hangouts.R
 import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
 import kotlinx.coroutines.launch
 import kotlin.random.Random
