@@ -10,4 +10,8 @@ import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 )
 abstract class ContactDatabase: RoomDatabase() {
     abstract val contactDao: ContactDao
+
+    companion object {
+        const val DATABASE_NAME = "contacts_db"
+    }
 }
