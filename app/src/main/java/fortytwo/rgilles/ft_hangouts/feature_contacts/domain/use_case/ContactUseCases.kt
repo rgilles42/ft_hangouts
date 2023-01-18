@@ -2,5 +2,6 @@ package fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case
 
 data class ContactUseCases(
     val getContacts: GetContactsUseCase,
-    val deleteContact: DeleteContactUseCase
+    val deleteContact: DeleteContactUseCase,
+    val addContact: AddContactUseCase
 )
