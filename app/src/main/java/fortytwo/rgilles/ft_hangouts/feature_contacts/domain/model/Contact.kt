@@ -11,7 +11,7 @@ data class Contact(
     val lastName: String,
     val phoneNumber: String,
     val email: String,
-    val birthday: LocalDate
+    val birthday: LocalDate?
 )
 
 class InvalidContactException(message: String): Exception(message)
