@@ -1,0 +1,107 @@
+package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact
+
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAPhoto
+import androidx.compose.material.icons.filled.AddPhotoAlternate
+import androidx.compose.material.icons.filled.PersonOutline
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    device = "id:pixel_5",
+    apiLevel = 33
+)
+fun DispAddEditContactScreen(
+    //navController: NavController,
+    //viewModel: DispAddEditContactViewModel = hiltViewModel()
+) {
+//    val firstNameState = viewModel.contactFirstName.value
+//    val lastNameState = viewModel.contactLastName.value
+//    val phoneNumberState = viewModel.contactPhoneNumber.value
+//    val emailState = viewModel.contactEmail.value
+//    val birthdayState = viewModel.contactBirthday.value
+
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState()}
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                //TODO: Add cancel button
+                title = { Text("Edit contact") },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
+        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                //viewModel.onEvent(DispAddEditContactEvent.SaveContact)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Save,
+                    contentDescription = "Save contact",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.size(20.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Card(
+                    modifier = Modifier.size(150.dp),
+                    shape = CircleShape,
+                    colors = CardDefaults.cardColors()
+                ) {
+                    //TODO: if contact has picture
+                    Icon(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(30.dp),
+                        imageVector = Icons.Default.AddPhotoAlternate,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                    //TODO: else maybe add picture label?
+                }
+            }
+            Spacer(modifier = Modifier.size(5.dp))
+            //TODO: if picture
+            Row(horizontalArrangement = Arrangement.SpaceAround) {
+                Text(text = "Change")
+                Spacer(Modifier.size(10.dp))
+                Text(text = "Remove")
+            }
+            Spacer(modifier = Modifier.size(35.dp))
+            //OutlinedTextField(value = , onValueChange = )
+        }
+    }
+}

@@ -9,10 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import fortytwo.rgilles.ft_hangouts.feature_contacts.data.data_source.ContactDatabase
 import fortytwo.rgilles.ft_hangouts.feature_contacts.data.repository.ContactRepositoryImpl
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.repository.ContactRepository
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.AddContactUseCase
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.DeleteContactUseCase
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.GetContactsUseCase
+import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.*
 import javax.inject.Singleton
 
 @Module
@@ -39,6 +36,7 @@ object AppModule {
     fun provideContactUseCases(repository: ContactRepository): ContactUseCases {
         return ContactUseCases(
             getContacts = GetContactsUseCase(repository),
+            getContact = GetContactUseCase(repository),
             deleteContact = DeleteContactUseCase(repository),
             addContact = AddContactUseCase(repository)
         )
