@@ -38,8 +38,7 @@ fun ContactItem(
         "+33696969696",
         "jean.roulin98015@gmail.com",
         LocalDate.parse("2023-10-27")
-    ),
-//    onClick: () -> Unit
+    )
 ) {
     Box(
         modifier = modifier
