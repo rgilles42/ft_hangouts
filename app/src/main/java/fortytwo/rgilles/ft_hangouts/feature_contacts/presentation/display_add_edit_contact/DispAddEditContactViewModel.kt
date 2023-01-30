@@ -63,7 +63,7 @@ class DispAddEditContactViewModel @Inject constructor(
             is DispAddEditContactEvent.EnteredFirstName -> {
                 _contactFirstName.value = event.value
             }
-            is DispAddEditContactEvent.ChangeBirthday -> {
+            is DispAddEditContactEvent.ChangedBirthday -> {
                 _contactBirthday.value = event.date
             }
             is DispAddEditContactEvent.EnteredEmail -> {

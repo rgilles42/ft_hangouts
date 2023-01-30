@@ -1,13 +1,11 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact
 
 import android.content.res.Configuration
+import android.widget.DatePicker
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddAPhoto
-import androidx.compose.material.icons.filled.AddPhotoAlternate
-import androidx.compose.material.icons.filled.PersonOutline
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -18,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,13 +29,19 @@ import androidx.navigation.NavController
 )
 fun DispAddEditContactScreen(
     //navController: NavController,
-    //viewModel: DispAddEditContactViewModel = hiltViewModel()
+//    viewModel: DispAddEditContactViewModel = hiltViewModel()
 ) {
 //    val firstNameState = viewModel.contactFirstName.value
 //    val lastNameState = viewModel.contactLastName.value
 //    val phoneNumberState = viewModel.contactPhoneNumber.value
 //    val emailState = viewModel.contactEmail.value
 //    val birthdayState = viewModel.contactBirthday.value
+
+    val firstNameState = "Jean"
+    val lastNameState = "Roulin"
+    val phoneNumberState = "+33642466193"
+    val emailState = "jean.roulin823674@gmail.com"
+    val birthdayState: LocalDate? = null
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState()}
@@ -66,7 +71,9 @@ fun DispAddEditContactScreen(
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.size(20.dp))
@@ -101,7 +108,86 @@ fun DispAddEditContactScreen(
                 Text(text = "Remove")
             }
             Spacer(modifier = Modifier.size(35.dp))
-            //OutlinedTextField(value = , onValueChange = )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "",
+                    Modifier.size(30.dp)
+                )
+                Spacer(Modifier.size(10.dp))
+                OutlinedTextField(
+                    value = firstNameState,
+                    onValueChange = {
+                        //viewModel.onEvent(DispAddEditContactEvent.EnteredFirstName(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("First Name") }
+                )
+            }
+            Spacer(modifier = Modifier.size(5.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(Modifier.size(40.dp))
+                OutlinedTextField(
+                    value = lastNameState,
+                    onValueChange = {
+                        //viewModel.onEvent(DispAddEditContactEvent.EnteredLastName(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Last Name") }
+                )
+            }
+            Spacer(modifier = Modifier.size(20.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.Phone,
+                    contentDescription = "",
+                    Modifier.size(30.dp)
+                )
+                Spacer(Modifier.size(10.dp))
+                OutlinedTextField(
+                    value = phoneNumberState,
+                    onValueChange = {
+                        //viewModel.onEvent(DispAddEditContactEvent.EnteredPhoneNumber(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Phone Number") }
+                )
+            }
+            Spacer(modifier = Modifier.size(20.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.Email,
+                    contentDescription = "",
+                    Modifier.size(30.dp)
+                )
+                Spacer(Modifier.size(10.dp))
+                OutlinedTextField(
+                    value = emailState,
+                    onValueChange = {
+                        //viewModel.onEvent(DispAddEditContactEvent.EnteredEmail(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Email Address") }
+                )
+            }
+            Spacer(modifier = Modifier.size(20.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.Cake,
+                    contentDescription = "",
+                    Modifier.size(30.dp)
+                )
+                Spacer(Modifier.size(10.dp))
+                //DatePicker()
+                OutlinedTextField(
+                    value = emailState,
+                    onValueChange = {
+                        //viewModel.onEvent(DispAddEditContactEvent.EnteredEmail(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Birthday") }
+                )
+            }
         }
     }
 }

@@ -7,6 +7,6 @@ sealed class DispAddEditContactEvent {
     data class EnteredLastName(val value: String): DispAddEditContactEvent()
     data class EnteredPhoneNumber(val value: String): DispAddEditContactEvent()
     data class EnteredEmail(val value: String): DispAddEditContactEvent()
-    data class ChangeBirthday(val date: LocalDate?): DispAddEditContactEvent()
+    data class ChangedBirthday(val date: LocalDate?): DispAddEditContactEvent()
     object SaveContact: DispAddEditContactEvent()
 }
