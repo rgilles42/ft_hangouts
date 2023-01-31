@@ -30,7 +30,7 @@ fun DispAddEditContactScreen(
     val lastNameState = viewModel.contactLastName.value
     val phoneNumberState = viewModel.contactPhoneNumber.value
     val emailState = viewModel.contactEmail.value
-    val birthdayState = viewModel.contactBirthday.value
+    //val birthdayState = viewModel.contactBirthday.value
 
 //    val firstNameState = "Jean"
 //    val lastNameState = "Roulin"

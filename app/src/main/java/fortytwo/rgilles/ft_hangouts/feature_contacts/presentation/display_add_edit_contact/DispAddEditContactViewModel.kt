@@ -12,7 +12,6 @@ import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseC
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,8 +32,8 @@ class DispAddEditContactViewModel @Inject constructor(
     private val _contactEmail = mutableStateOf("")
     val contactEmail: State<String> = _contactEmail
 
-    private val _contactBirthday = mutableStateOf<LocalDate?>(null)
-    val contactBirthday: State<LocalDate?> = _contactBirthday
+//    private val _contactBirthday = mutableStateOf<LocalDate?>(null)
+//    val contactBirthday: State<LocalDate?> = _contactBirthday
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -51,7 +50,7 @@ class DispAddEditContactViewModel @Inject constructor(
                         _contactLastName.value = it.lastName
                         _contactEmail.value = it.email
                         _contactPhoneNumber.value = it.phoneNumber
-                        _contactBirthday.value = it.birthday
+                        //_contactBirthday.value = it.birthday
                     }
                 }
             }
@@ -63,9 +62,9 @@ class DispAddEditContactViewModel @Inject constructor(
             is DispAddEditContactEvent.EnteredFirstName -> {
                 _contactFirstName.value = event.value
             }
-            is DispAddEditContactEvent.ChangedBirthday -> {
-                _contactBirthday.value = event.date
-            }
+//            is DispAddEditContactEvent.ChangedBirthday -> {
+//                _contactBirthday.value = event.date
+//            }
             is DispAddEditContactEvent.EnteredEmail -> {
                 _contactEmail.value = event.value
             }
@@ -84,7 +83,7 @@ class DispAddEditContactViewModel @Inject constructor(
                                 lastName = contactLastName.value,
                                 phoneNumber = contactPhoneNumber.value,
                                 email = contactEmail.value,
-                                birthday = contactBirthday.value,
+                                //birthday = contactBirthday.value,
                                 id = currentContactId
                             )
                         )
