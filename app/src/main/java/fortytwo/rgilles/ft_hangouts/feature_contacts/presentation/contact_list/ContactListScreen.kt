@@ -1,6 +1,5 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,13 +10,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
-import kotlinx.coroutines.launch
+import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,9 +23,9 @@ fun ContactListScreen(
     viewModel: ContactListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    val scope = rememberCoroutineScope()
+    //TODO: Delete contact val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -41,13 +38,11 @@ fun ContactListScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                scope.launch {
-                    snackbarHostState.showSnackbar(
-                        "Button has been pressed"
-                    )
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Screen.DispAddEditContactScreen.route)
                 }
-            }) {
+            ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add note",
@@ -56,7 +51,7 @@ fun ContactListScreen(
             }
         },
 
-    ) { values ->
+        ) { values ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -64,11 +59,16 @@ fun ContactListScreen(
         ) {
             items(state.contacts) { contact ->
                 ContactItem(
-                    modifier = Modifier.clickable {
-                },
-                    contact = contact)
-
+                    contact = contact,
+                    modifier = Modifier
+                        .clickable {
+                            navController.navigate(
+                                Screen.DispAddEditContactScreen.route +
+                                        "?contactId=${contact.id}"
+                            )
+                        }
+                )
             }
         }
     }
-    }
+}
