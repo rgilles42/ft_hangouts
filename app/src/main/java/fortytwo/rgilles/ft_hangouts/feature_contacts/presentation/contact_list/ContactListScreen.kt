@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Contacts
+import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -37,6 +39,22 @@ fun ContactListScreen(
                 )
             )
         },
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = true,
+                    onClick = {},
+                    icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = "Contacts") },
+                    label = { Text("Contacts") }
+                )
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { navController.navigate(Screen.ConversationListScreen.route) },
+                    icon = { Icon(imageVector = Icons.Filled.Message, contentDescription = "Conversations") },
+                    label = { Text("Conversations") }
+                )
+            }
+                    },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(

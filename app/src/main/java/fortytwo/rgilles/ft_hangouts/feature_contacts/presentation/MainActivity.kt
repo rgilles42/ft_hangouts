@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.ContactListScreen
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact.DispAddEditContactScreen
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation.ConversationListScreen
 import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
 
 @AndroidEntryPoint
@@ -47,6 +48,9 @@ class MainActivity : ComponentActivity() {
                             )
                         ) {
                             DispAddEditContactScreen(navController = navController)
+                        }
+                        composable(route = Screen.ConversationListScreen.route) {
+                            ConversationListScreen(navController = navController)
                         }
                     }
 //                    val mySnackbarHostState = remember { SnackbarHostState() }
