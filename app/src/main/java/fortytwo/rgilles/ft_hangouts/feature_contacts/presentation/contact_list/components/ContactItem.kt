@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 
@@ -19,13 +21,6 @@ fun formContactName(contact: Contact): String {
 }
 
 @Composable
-//@Preview(
-//    showBackground = true,
-//    //showSystemUi = true,
-//    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
-//    device = "id:pixel_5",
-//    apiLevel = 33
-//)
 fun ContactItem(
     modifier: Modifier = Modifier,
     contact: Contact
@@ -40,7 +35,7 @@ fun ContactItem(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(70.dp)
     ) {
         Row(
             modifier = modifier

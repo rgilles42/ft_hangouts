@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
@@ -45,7 +46,7 @@ fun ContactListScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add note",
+                    contentDescription = "Add Contact",
                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
@@ -55,7 +56,8 @@ fun ContactListScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(values),
+                .padding(values)
+                .padding(15.dp),
         ) {
             items(state.contacts) { contact ->
                 ContactItem(
