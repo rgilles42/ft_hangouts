@@ -53,7 +53,7 @@ android {
 
 dependencies {
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
 
     def composeBom = platform("androidx.compose:compose-bom:2022.12.00")
     implementation composeBom
