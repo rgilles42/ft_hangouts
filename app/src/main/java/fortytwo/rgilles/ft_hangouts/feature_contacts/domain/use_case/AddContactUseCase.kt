@@ -12,7 +12,7 @@ class AddContactUseCase(
         if (contact.firstName.isBlank() and contact.lastName.isBlank()){
             throw InvalidContactException("Contact name cannot be empty.")
         }
-        if (contact.phoneNumber.isBlank() or contact.email.isBlank()){
+        if (contact.phoneNumber.isBlank() and contact.email.isBlank()){
             throw InvalidContactException("Contact email or phone number cannot be empty.")
         }
         repository.insertContact(contact)
