@@ -6,10 +6,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fortytwo.rgilles.ft_hangouts.feature_contacts.data.data_source.ContactDatabase
+import fortytwo.rgilles.ft_hangouts.common.data.data_source.ContactDatabase
 import fortytwo.rgilles.ft_hangouts.feature_contacts.data.repository.ContactRepositoryImpl
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.repository.ContactRepository
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.*
+import fortytwo.rgilles.ft_hangouts.feature_messaging.data.repository.MessageRepositoryImpl
+import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.repository.MessageRepository
 import javax.inject.Singleton
 
 @Module
@@ -29,6 +31,12 @@ object AppModule {
     @Singleton
     fun provideContactRepository(db: ContactDatabase): ContactRepository {
         return ContactRepositoryImpl(db.contactDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageRepository(db: ContactDatabase): MessageRepository {
+        return MessageRepositoryImpl(db.messageDao)
     }
 
     @Provides

@@ -1,10 +1,7 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.data.data_source
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +9,10 @@ import kotlinx.coroutines.flow.Flow
 interface ContactDao {
     @Query("SELECT * FROM contact")
     fun         getContacts(): Flow<List<Contact>>
+
+    @Transaction
+    @Query("SELECT * FROM contact")
+    fun         getContactsWithMessages(): Flow<List<ContactWithMessages>>
 
     @Query("SELECT * FROM contact WHERE id = :id")
     suspend fun getContactById(id: Int): Contact?
