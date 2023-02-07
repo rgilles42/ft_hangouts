@@ -13,11 +13,18 @@ class ContactRepositoryImpl(
         return dao.getContacts()
     }
 
-    override fun getContactsWithMessagesExchanged(): Flow<List<Contact>> {
+    override fun getContactsWithExistingConversation(): Flow<List<Contact>> {
         return dao.getContactsWithMessages().map { ListOfContactsWithMessages ->
             ListOfContactsWithMessages
                 .filter { ContactWithMessages ->
                     ContactWithMessages.messages.isNotEmpty()
+                }
+                .sortedByDescending { ContactWithMessages ->
+                    ContactWithMessages.messages
+                        .sortedByDescending { message ->
+                            message.timestamp
+                        }[0].timestamp
+
                 }
                 .map { ContactWithActualMessages ->
                     ContactWithActualMessages.contact

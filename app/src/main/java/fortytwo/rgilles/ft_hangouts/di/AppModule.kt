@@ -44,6 +44,7 @@ object AppModule {
     fun provideContactUseCases(repository: ContactRepository): ContactUseCases {
         return ContactUseCases(
             getContacts = GetContactsUseCase(repository),
+            getContactsWithActiveConvs = GetContactsWithActiveConvsUseCase(repository),
             getContact = GetContactUseCase(repository),
             deleteContact = DeleteContactUseCase(repository),
             addContact = AddContactUseCase(repository)
