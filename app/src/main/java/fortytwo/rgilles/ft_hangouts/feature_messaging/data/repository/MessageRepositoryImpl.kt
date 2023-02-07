@@ -9,7 +9,12 @@ import kotlinx.coroutines.flow.map
 class MessageRepositoryImpl(
     private val dao: MessageDao
 ): MessageRepository {
-    override fun getMessagesByContact(contactId: Int): Flow<List<Message>> {
+
+//    override fun getMessages(): Flow<List<Messages>> {
+//        return dao.getMessages()
+//    }
+
+    override fun getMessagesOfContact(contactId: Int): Flow<List<Message>> {
         return dao.getContactWithMessagesByContactId(contactId).map { ContactWithMessages ->
             ContactWithMessages.messages
         }
