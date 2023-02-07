@@ -9,7 +9,7 @@ import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.Message
 
 @Database(
     entities = [Contact::class, Message::class],
-    version = 2
+    version = 1
 )
 abstract class ContactDatabase: RoomDatabase() {
     abstract val contactDao: ContactDao
