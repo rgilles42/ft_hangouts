@@ -12,6 +12,7 @@ import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.repository.ContactRe
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.*
 import fortytwo.rgilles.ft_hangouts.feature_messaging.data.repository.MessageRepositoryImpl
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.repository.MessageRepository
+import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.use_case.*
 import javax.inject.Singleton
 
 @Module
@@ -48,6 +49,17 @@ object AppModule {
             getContact = GetContactUseCase(repository),
             deleteContact = DeleteContactUseCase(repository),
             addContact = AddContactUseCase(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageUseCases(repository: MessageRepository): MessageUseCases {
+        return MessageUseCases(
+            getMessagesOfContact = GetMessagesOfContactUseCase(repository),
+            getMessage = GetMessageUseCase(repository),
+            deleteMessage = DeleteMessageUseCase(repository),
+            addMessage = AddMessageUseCase(repository)
         )
     }
 }
