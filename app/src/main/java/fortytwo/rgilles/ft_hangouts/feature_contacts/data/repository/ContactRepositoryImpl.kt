@@ -1,5 +1,6 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.data.repository
 
+import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
 import fortytwo.rgilles.ft_hangouts.feature_contacts.data.data_source.ContactDao
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.repository.ContactRepository
@@ -13,21 +14,11 @@ class ContactRepositoryImpl(
         return dao.getContacts()
     }
 
-    override fun getContactsWithExistingConversation(): Flow<List<Contact>> {
+    override fun getContactsWithExistingConversation(): Flow<List<ContactWithMessages>> {
         return dao.getContactsWithMessages().map { ListOfContactsWithMessages ->
             ListOfContactsWithMessages
                 .filter { ContactWithMessages ->
                     ContactWithMessages.messages.isNotEmpty()
-                }
-                .sortedByDescending { ContactWithMessages ->
-                    ContactWithMessages.messages
-                        .sortedByDescending { message ->
-                            message.timestamp
-                        }[0].timestamp
-
-                }
-                .map { ContactWithActualMessages ->
-                    ContactWithActualMessages.contact
                 }
         }
     }
