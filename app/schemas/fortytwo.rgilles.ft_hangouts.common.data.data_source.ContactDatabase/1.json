@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a4ea2f45e37848c252bca03f5e15ebb7",
+    "identityHash": "ed0549b7d1a7ed158128924f501bbbc0",
     "entities": [
       {
         "tableName": "Contact",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "Message",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `recipientId` INTEGER NOT NULL, `isIncoming` INTEGER NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `recipientPhoneNumber` TEXT, `recipientId` INTEGER, `content` TEXT NOT NULL, `isIncoming` INTEGER NOT NULL, `hasTransmitted` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -59,9 +59,21 @@
             "notNull": false
           },
           {
+            "fieldPath": "recipientPhoneNumber",
+            "columnName": "recipientPhoneNumber",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "recipientId",
             "columnName": "recipientId",
             "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -71,9 +83,15 @@
             "notNull": true
           },
           {
-            "fieldPath": "content",
-            "columnName": "content",
+            "fieldPath": "hasTransmitted",
+            "columnName": "hasTransmitted",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -90,7 +108,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4ea2f45e37848c252bca03f5e15ebb7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ed0549b7d1a7ed158128924f501bbbc0')"
     ]
   }
 }
