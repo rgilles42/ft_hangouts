@@ -75,7 +75,7 @@ fun ContactListScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(values)
-                .padding(15.dp),
+                .padding(5.dp),
         ) {
             items(state.contacts) { contact ->
                 ContactItem(

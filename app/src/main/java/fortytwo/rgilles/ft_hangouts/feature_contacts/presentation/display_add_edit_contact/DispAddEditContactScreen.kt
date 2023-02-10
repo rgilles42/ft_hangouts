@@ -57,10 +57,11 @@ fun DispAddEditContactScreen(
         topBar = {
             TopAppBar(
                 //TODO: Add cancel button
+                //TODO: add menu with delete option
                 title = { Text("Edit contact") },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    containerColor = MaterialTheme.colorScheme.background,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
             )
         },
