@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -118,7 +121,7 @@ fun DispAddEditContactScreen(
             Spacer(modifier = Modifier.size(35.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = Icons.Default.Person,
+                    imageVector = Icons.Outlined.Person,
                     contentDescription = "",
                     Modifier.size(30.dp)
                 )
@@ -147,7 +150,7 @@ fun DispAddEditContactScreen(
             Spacer(modifier = Modifier.size(20.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = Icons.Default.Phone,
+                    imageVector = Icons.Outlined.Phone,
                     contentDescription = "",
                     Modifier.size(30.dp)
                 )
@@ -164,7 +167,7 @@ fun DispAddEditContactScreen(
             Spacer(modifier = Modifier.size(20.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = Icons.Default.Email,
+                    imageVector = Icons.Outlined.Email,
                     contentDescription = "",
                     Modifier.size(30.dp)
                 )
@@ -182,7 +185,7 @@ fun DispAddEditContactScreen(
             //TODO: Birthday
 //            Row(verticalAlignment = Alignment.CenterVertically) {
 //                Icon(
-//                    imageVector = Icons.Default.Cake,
+//                    imageVector = Icons.Outlined.Cake,
 //                    contentDescription = "",
 //                    Modifier.size(30.dp)
 //                )
