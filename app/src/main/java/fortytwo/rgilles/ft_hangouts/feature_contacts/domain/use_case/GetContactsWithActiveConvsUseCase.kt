@@ -10,8 +10,8 @@ class GetContactsWithActiveConvsUseCase(
 ) {
     operator fun invoke(): Flow<List<ContactWithMessages>> {
         // Order is fixed and set directly in repo implementation: berk
-        return repository.getContactsWithExistingConversation().map { ContactWithExistingConvsList ->
-            ContactWithExistingConvsList.sortedByDescending { ContactWithMessages ->
+        return repository.getContactsWithActiveConvs().map { ContactWithMessagesList ->
+            ContactWithMessagesList.sortedByDescending { ContactWithMessages ->
                 ContactWithMessages.messages
                     .sortedByDescending { message ->
                         message.timestamp

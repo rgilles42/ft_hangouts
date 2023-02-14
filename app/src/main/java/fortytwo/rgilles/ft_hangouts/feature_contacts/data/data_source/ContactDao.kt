@@ -12,7 +12,11 @@ interface ContactDao {
 
     @Transaction
     @Query("SELECT * FROM contact")
-    fun         getContactsWithMessages(): Flow<List<ContactWithMessages>>
+    fun         getContactsWithActiveConvs(): Flow<List<ContactWithMessages>>
+
+    @Transaction
+    @Query("SELECT * FROM contact WHERE id = :id")
+    fun         getContactWithMessages(id: Int): Flow<ContactWithMessages>
 
     @Query("SELECT * FROM contact WHERE id = :id")
     suspend fun getContactById(id: Int): Contact?

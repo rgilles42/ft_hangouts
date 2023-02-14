@@ -14,13 +14,17 @@ class ContactRepositoryImpl(
         return dao.getContacts()
     }
 
-    override fun getContactsWithExistingConversation(): Flow<List<ContactWithMessages>> {
-        return dao.getContactsWithMessages().map { ListOfContactsWithMessages ->
+    override fun getContactsWithActiveConvs(): Flow<List<ContactWithMessages>> {
+        return dao.getContactsWithActiveConvs().map { ListOfContactsWithMessages ->
             ListOfContactsWithMessages
                 .filter { ContactWithMessages ->
                     ContactWithMessages.messages.isNotEmpty()
                 }
         }
+    }
+
+    override fun getContactWithMessages(id: Int): Flow<ContactWithMessages> {
+        return dao.getContactWithMessages(id)
     }
 
     override suspend fun getContactById(id: Int): Contact? {
