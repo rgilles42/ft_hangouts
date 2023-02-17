@@ -8,39 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.formContactName
-import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.Message
-import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.TransmissionStatus
 
-@Preview
 @Composable
 fun ConversationItem(
     modifier: Modifier = Modifier,
     contactWithMessages: ContactWithMessages
-        = ContactWithMessages(
-            Contact(
-                null,
-                "Jean",
-                "Roulin",
-                "+33696969696",
-                "jean.roulin98015@gmail.com"
-            ),
-            listOf(
-                Message(
-                    id = null,
-                    recipientPhoneNumber = "+33696969696",
-                    recipientId = null,
-                    content = "Salut à toi camarade Jean Roulin",
-                    isIncoming = false,
-                    hasTransmitted = TransmissionStatus.RECEIVED,
-                    timestamp = System.currentTimeMillis()
-                )
-            )
-        )
 ){
     Box(
         modifier = modifier
