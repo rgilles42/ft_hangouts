@@ -9,13 +9,17 @@ class GetContactsWithActiveConvsUseCase(
     private val repository: ContactRepository
 ) {
     operator fun invoke(): Flow<List<ContactWithMessages>> {
-        // Order is fixed and set directly in repo implementation: berk
         return repository.getContactsWithActiveConvs().map { ContactWithMessagesList ->
             ContactWithMessagesList.sortedByDescending { ContactWithMessages ->
                 ContactWithMessages.messages
                     .sortedByDescending { message ->
                         message.timestamp
                     }[0].timestamp
+            }.map { ContactWithMessages ->
+                ContactWithMessages(
+                    contact = ContactWithMessages.contact,
+                    messages = ContactWithMessages.messages.sortedByDescending { message -> message.timestamp }
+                )
             }
         }
     }
