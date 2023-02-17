@@ -86,7 +86,8 @@ fun ContactListScreen(
                                 Screen.DispAddEditContactScreen.route +
                                         "?contactId=${contact.id}"
                             )
-                        }
+                        },
+                    navController = navController
                 )
             }
         }
