@@ -9,10 +9,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
+import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.InvalidMessageException
+import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.Message
+import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.TransmissionStatus
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.use_case.MessageUseCases
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,11 +34,47 @@ class ConversationChatViewModel @Inject constructor(
         )
     )
     val contactWithMessagesState: State<ContactWithMessages> = _contactWithMessagesState
+    private val _currentlyTypedMessage = mutableStateOf("")
+    val currentlyTypedMessage : State<String> = _currentlyTypedMessage
+    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
     private var getContactWithMessagesJob: Job? = null
 
     init {
         savedStateHandle.get<Int>("contactId")?.let { contactId ->
             getContactWithMessages(contactId)
+        }
+    }
+
+    fun onEvent(event: ConversationChatEvent) {
+        when (event) {
+            is ConversationChatEvent.TypedMessage -> {
+                _currentlyTypedMessage.value = event.value
+            }
+            is ConversationChatEvent.SendMessage -> {
+                viewModelScope.launch {
+                    try {
+                        messageUseCases.addMessage(
+                            Message(
+                                id = null,
+                                recipientPhoneNumber = contactWithMessagesState.value.contact.phoneNumber,
+                                recipientId = contactWithMessagesState.value.contact.id,
+                                content = currentlyTypedMessage.value,
+                                isIncoming = false,
+                                hasTransmitted = TransmissionStatus.SENDING,
+                                timestamp = System.currentTimeMillis()
+                            )
+                        )
+                        _eventFlow.emit(UiEvent.SendMessage)
+                    } catch (e: InvalidMessageException) {
+                        _eventFlow.emit(
+                            UiEvent.ShowSnackbar(
+                                message = e.message?: "Couldn't send message!"
+                            )
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -43,5 +85,10 @@ class ConversationChatViewModel @Inject constructor(
                 _contactWithMessagesState.value = contactWithMessages
             }
             .launchIn(viewModelScope)
+    }
+
+    sealed class UiEvent {
+        data class ShowSnackbar(val message: String): UiEvent()
+        object SendMessage: UiEvent()
     }
 }

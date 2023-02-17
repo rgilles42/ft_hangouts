@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation
+package fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Contacts
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
-import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list.ConversationListViewModel
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list.components.ConversationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,20 +55,6 @@ fun ConversationListScreen(
             }
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    /*navController.navigate(Screen.ConversationScreen.route)*/
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Edit,
-                    contentDescription = "New conversation",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
-        },
-
         ) { values ->
         LazyColumn(
             modifier = Modifier
@@ -83,7 +67,10 @@ fun ConversationListScreen(
                     contactWithMessages = contactWithMessages,
                     modifier = Modifier
                         .clickable {
-                            //TODO
+                            navController.navigate(
+                                Screen.ConversationChatScreen.route +
+                                        "?contactId=${contactWithMessages.contact.id}"
+                            )
                         }
                 )
             }
