@@ -17,3 +17,5 @@ data class Message(
     val hasTransmitted: TransmissionStatus,
     val timestamp: Long
 )
+
+class InvalidMessageException(message: String): Exception(message)
