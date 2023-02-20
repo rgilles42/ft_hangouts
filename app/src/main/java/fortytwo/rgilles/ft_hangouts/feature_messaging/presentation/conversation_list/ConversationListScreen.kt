@@ -42,7 +42,13 @@ fun ConversationListScreen(
             NavigationBar {
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate(Screen.ContactListScreen.route) },
+                    onClick = {
+                        navController.navigate(Screen.ContactListScreen.route) {
+                            popUpTo(0) {
+                                inclusive = true
+                            }
+                        }
+                              },
                     icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = "Contacts") },
                     label = { Text("Contacts") }
                 )
