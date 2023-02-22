@@ -12,6 +12,8 @@ import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseC
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +34,9 @@ class DispAddEditContactViewModel @Inject constructor(
     private val _contactEmail = mutableStateOf("")
     val contactEmail: State<String> = _contactEmail
 
+    private val _contactPicturePath = mutableStateOf("")
+    val contactPicturePath: State<String> = _contactPicturePath
+
 //    private val _contactBirthday = mutableStateOf<LocalDate?>(null)
 //    val contactBirthday: State<LocalDate?> = _contactBirthday
 
@@ -50,6 +55,7 @@ class DispAddEditContactViewModel @Inject constructor(
                         _contactLastName.value = it.lastName
                         _contactEmail.value = it.email
                         _contactPhoneNumber.value = it.phoneNumber
+                        _contactPicturePath.value = it.picturePath
                         //_contactBirthday.value = it.birthday
                     }
                 }
@@ -74,6 +80,24 @@ class DispAddEditContactViewModel @Inject constructor(
             is DispAddEditContactEvent.EnteredPhoneNumber -> {
                 _contactPhoneNumber.value = event.value
             }
+            is DispAddEditContactEvent.ChangedPicture -> {
+                var filename = ""
+                if (event.uri != null) {
+                    val contentResolver = event.context.contentResolver
+                    var mimeType = contentResolver.getType(event.uri)
+                    if (mimeType != null) {
+                        mimeType = mimeType.substring(mimeType.lastIndexOf("/") + 1)
+                    }
+                    filename = "${System.currentTimeMillis()}.$mimeType"
+                    val inputStream = contentResolver.openInputStream(event.uri)
+                    val file = File(event.context.filesDir, filename)
+                    val outputStream = FileOutputStream(file)
+                    inputStream?.copyTo(outputStream)
+                    inputStream?.close()
+                    outputStream.close()
+                }
+                _contactPicturePath.value = filename
+            }
             is DispAddEditContactEvent.SaveContact -> {
                 viewModelScope.launch {
                     try {
@@ -83,6 +107,7 @@ class DispAddEditContactViewModel @Inject constructor(
                                 lastName = contactLastName.value,
                                 phoneNumber = contactPhoneNumber.value,
                                 email = contactEmail.value,
+                                picturePath = contactPicturePath.value,
                                 //birthday = contactBirthday.value,
                                 id = currentContactId
                             )

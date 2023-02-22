@@ -29,7 +29,7 @@ class ConversationChatViewModel @Inject constructor(
 ) : ViewModel() {
     private val _contactWithMessagesState = mutableStateOf(
         ContactWithMessages(
-            Contact(null, "", "", "", ""),
+            Contact(null, "", "", "", "", ""),
             emptyList()
         )
     )

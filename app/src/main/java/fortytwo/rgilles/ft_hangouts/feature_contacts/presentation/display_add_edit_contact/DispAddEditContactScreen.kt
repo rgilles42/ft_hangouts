@@ -1,5 +1,11 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact
 
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -11,35 +17,36 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-//@Preview(
-//    showBackground = true,
-//    showSystemUi = true,
-//    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
-//    device = "id:pixel_5",
-//    apiLevel = 33
-//)
 fun DispAddEditContactScreen(
     navController: NavController,
     viewModel: DispAddEditContactViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val firstNameState = viewModel.contactFirstName.value
     val lastNameState = viewModel.contactLastName.value
     val phoneNumberState = viewModel.contactPhoneNumber.value
     val emailState = viewModel.contactEmail.value
+    val picturePathState = viewModel.contactPicturePath.value
     //val birthdayState = viewModel.contactBirthday.value
 
-//    val firstNameState = "Jean"
-//    val lastNameState = "Roulin"
-//    val phoneNumberState = "+33642466193"
-//    val emailState = "jean.roulin823674@gmail.com"
-//    val birthdayState: LocalDate? = null
+    val bitmap =  remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        viewModel.onEvent(DispAddEditContactEvent.ChangedPicture(uri, context))
+    }
 
     val snackbarHostState = remember { SnackbarHostState()}
 
@@ -99,24 +106,53 @@ fun DispAddEditContactScreen(
                     shape = CircleShape,
                     colors = CardDefaults.cardColors()
                 ) {
-                    //TODO: if contact has picture
-                    Icon(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(30.dp),
-                        imageVector = Icons.Default.AddPhotoAlternate,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                    //TODO: else maybe add picture label?
+                    if (picturePathState.isNotBlank() && File(context.filesDir, picturePathState).exists()) {
+                        val source = ImageDecoder.createSource(File(context.filesDir, picturePathState))
+                        bitmap.value = ImageDecoder.decodeBitmap(source)
+                        bitmap.value?.let {  btm ->
+                            Image(
+                                bitmap = btm.asImageBitmap(),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    } else {
+                        Icon(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(30.dp),
+                            imageVector = Icons.Default.AddPhotoAlternate,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.size(5.dp))
-            //TODO: if picture
-            Row(horizontalArrangement = Arrangement.SpaceAround) {
-                Text(text = "Change")
-                Spacer(Modifier.size(10.dp))
-                Text(text = "Remove")
+            if (picturePathState.isNotBlank()) {
+                Row(horizontalArrangement = Arrangement.SpaceAround) {
+                    Text(
+                        text = "Change",
+                        modifier = Modifier.clickable {
+                            imagePickerLauncher.launch("image/*")
+                        }
+                    )
+                    Spacer(Modifier.size(10.dp))
+                    Text(
+                        text = "Remove",
+                        modifier = Modifier.clickable {
+                            viewModel.onEvent(DispAddEditContactEvent.ChangedPicture(null, context))
+                        }
+                    )
+                }
+            } else {
+                Text(
+                    text = "Add picture",
+                    modifier = Modifier.clickable {
+                        imagePickerLauncher.launch("image/*")
+                    }
+                )
             }
             Spacer(modifier = Modifier.size(35.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
