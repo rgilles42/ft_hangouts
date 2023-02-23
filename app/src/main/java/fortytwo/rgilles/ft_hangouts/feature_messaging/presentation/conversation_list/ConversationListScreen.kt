@@ -25,7 +25,6 @@ fun ConversationListScreen(
     viewModel: ConversationListViewModel = hiltViewModel()
 ) {
     val contactListWithConvs = viewModel.contactListWithConvsState.value
-    //TODO: Delete contact val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(

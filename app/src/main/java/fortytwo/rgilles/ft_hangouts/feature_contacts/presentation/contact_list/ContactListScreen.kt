@@ -26,7 +26,6 @@ fun ContactListScreen(
     viewModel: ContactListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    //TODO: Delete contact val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
