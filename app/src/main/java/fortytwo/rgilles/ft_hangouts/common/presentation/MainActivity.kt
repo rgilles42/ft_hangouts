@@ -1,15 +1,20 @@
 package fortytwo.rgilles.ft_hangouts.common.presentation
 
+import android.Manifest
+import android.content.IntentFilter
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.*
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import fortytwo.rgilles.ft_hangouts.common.broadcast_receiver.SmsBroadcastReceiver
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.ContactListScreen
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact.DispAddEditContactScreen
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
@@ -21,6 +26,14 @@ import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (areSmsPermissionsGranted()) {
+            ActivityCompat.registerReceiver(
+                this,
+                SmsBroadcastReceiver(),
+                IntentFilter("android.provider.Telephony.SMS_RECEIVED"),
+                ActivityCompat.RECEIVER_NOT_EXPORTED
+            )
+        }
         setContent {
             Ft_hangoutsTheme {
                 // A surface container using the 'background' color from the theme
@@ -73,5 +86,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun areSmsPermissionsGranted(): Boolean {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) == PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PERMISSION_GRANTED
     }
 }
