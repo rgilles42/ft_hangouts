@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util
+package fortytwo.rgilles.ft_hangouts.common.presentation.util
 
 sealed class Screen(val route: String) {
     object ContactListScreen: Screen("contact_list_screen")

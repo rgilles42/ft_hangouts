@@ -21,7 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
-import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
 import java.io.File
 
 fun formContactName(contact: Contact): String {

@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation
+package fortytwo.rgilles.ft_hangouts.common.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.ContactListScreen
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact.DispAddEditContactScreen
-import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_chat.ConversationChatScreen
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list.ConversationListScreen
 import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme

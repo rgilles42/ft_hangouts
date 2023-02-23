@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
-import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

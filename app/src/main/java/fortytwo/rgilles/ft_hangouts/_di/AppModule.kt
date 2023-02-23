@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.di
+package fortytwo.rgilles.ft_hangouts._di
 
 import android.app.Application
 import androidx.room.Room
