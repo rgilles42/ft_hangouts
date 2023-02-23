@@ -43,7 +43,7 @@ class DispAddEditContactViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private var currentContactId: Int? = null
+    var currentContactId: Int? = null
 
     init {
         savedStateHandle.get<Int>("contactId")?.let { contactId ->
@@ -122,12 +122,35 @@ class DispAddEditContactViewModel @Inject constructor(
                     }
                 }
             }
+            is DispAddEditContactEvent.DeleteContact -> {
+                viewModelScope.launch {
+                    try {
+                        contactUseCases.deleteContact(
+                            Contact(
+                                firstName = contactFirstName.value,
+                                lastName = contactLastName.value,
+                                phoneNumber = contactPhoneNumber.value,
+                                email = contactEmail.value,
+                                picturePath = contactPicturePath.value,
+                                //birthday = contactBirthday.value,
+                                id = currentContactId
+                            )
+                        )
+                        _eventFlow.emit(UiEvent.DeletedContact)
+                    } catch (e: java.lang.Exception) {
+                        UiEvent.ShowSnackbar(
+                            message = e.message?: "Couldn't delete contact!"
+                        )
+                    }
+                }
+            }
         }
     }
 
     sealed class UiEvent {
         data class ShowSnackbar(val message: String): UiEvent()
         object SaveContact: UiEvent()
+        object DeletedContact: UiEvent()
     }
 
 }

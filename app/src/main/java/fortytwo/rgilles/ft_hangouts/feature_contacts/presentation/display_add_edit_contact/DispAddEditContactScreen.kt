@@ -59,20 +59,43 @@ fun DispAddEditContactScreen(
                 is DispAddEditContactViewModel.UiEvent.SaveContact -> {
                     navController.navigateUp()
                 }
+                DispAddEditContactViewModel.UiEvent.DeletedContact -> {
+                    navController.navigateUp()
+                }
             }
         }
     }
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 //TODO: Add cancel button
                 //TODO: add menu with delete option
                 title = { Text("Edit contact") },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
-                )
+//                colors = TopAppBarDefaults.smallTopAppBarColors(
+//                    containerColor = MaterialTheme.colorScheme.background,
+//                    titleContentColor = MaterialTheme.colorScheme.onBackground
+//                )
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Go back to contact list"
+                        )
+                    }
+                },
+                actions = {
+                    if (viewModel.currentContactId != null) {
+                        IconButton(onClick = {
+                            viewModel.onEvent(DispAddEditContactEvent.DeleteContact)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Delete contact"
+                            )
+                        }
+                    }
+                }
             )
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
