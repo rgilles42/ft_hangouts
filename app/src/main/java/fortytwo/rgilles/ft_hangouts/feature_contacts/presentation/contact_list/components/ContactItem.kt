@@ -74,7 +74,7 @@ fun ContactItem(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(5.dp),
-                        imageVector = Icons.Default.PersonOutline,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
@@ -87,36 +87,42 @@ fun ContactItem(
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.weight(1f))
-            if (contact.phoneNumber.isNotBlank()) {
-                IconButton(onClick = {
-                    navController.navigate(
-                    Screen.ConversationChatScreen.route +
-                            "?contactId=${contact.id}"
-                    )
-                }) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(5.dp)
-                            .fillMaxHeight(),
-                        imageVector = Icons.Outlined.Message,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
             if (contact.email.isNotBlank()) {
                 IconButton(onClick = {
                     //TODO
                 }) {
                     Icon(
                         modifier = Modifier
-                            .padding(5.dp)
-                            .fillMaxHeight(),
+                            .fillMaxSize()
+                            .padding(6.dp),
                         imageVector = Icons.Outlined.Email,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+            }
+            if (contact.phoneNumber.isNotBlank()) {
+                IconButton(onClick = {
+                    navController.navigate(
+                        Screen.ConversationChatScreen.route +
+                                "?contactId=${contact.id}"
+                    )
+                }) {
+                    Icon(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(6.dp),
+                        imageVector = Icons.Outlined.Message,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            } else {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(6.dp)
+                )
             }
         }
     }

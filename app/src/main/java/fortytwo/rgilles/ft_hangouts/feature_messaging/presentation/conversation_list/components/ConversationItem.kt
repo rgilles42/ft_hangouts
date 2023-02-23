@@ -6,7 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PersonOutline
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -62,7 +62,7 @@ fun ConversationItem(
                     Icon(
                         modifier = Modifier.fillMaxSize()
                             .padding(5.dp),
-                        imageVector = Icons.Default.PersonOutline,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
