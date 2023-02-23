@@ -4,8 +4,11 @@ import android.Manifest
 import android.content.IntentFilter
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
+import android.provider.Telephony
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.*
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavType
@@ -24,14 +27,17 @@ import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (areSmsPermissionsGranted()) {
-            ActivityCompat.registerReceiver(
-                this,
-                SmsBroadcastReceiver(),
-                IntentFilter("android.provider.Telephony.SMS_RECEIVED"),
-                ActivityCompat.RECEIVER_NOT_EXPORTED
+            registerSmsReceiver()
+        } else {
+            requestPermissionsLauncher.launch(
+                arrayOf(
+                    Manifest.permission.RECEIVE_SMS,
+                    Manifest.permission.SEND_SMS
+                )
             )
         }
         setContent {
@@ -91,5 +97,23 @@ class MainActivity : ComponentActivity() {
     private fun areSmsPermissionsGranted(): Boolean {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) == PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PERMISSION_GRANTED
+    }
+
+    private fun registerSmsReceiver() {
+        ActivityCompat.registerReceiver(
+            this,
+            SmsBroadcastReceiver(),
+            IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION),
+            ActivityCompat.RECEIVER_NOT_EXPORTED
+        )
+        Log.d("DEBUG", "SMS receiver registered")
+    }
+
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { mapOfGrants ->
+        if (mapOfGrants[Manifest.permission.RECEIVE_SMS] == true) {
+            registerSmsReceiver()
+        }
     }
 }

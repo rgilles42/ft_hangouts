@@ -1,5 +1,8 @@
 package fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_chat
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.telephony.SmsManager
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -9,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
-import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.InvalidMessageException
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.Message
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.TransmissionStatus
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.use_case.MessageUseCases
@@ -54,22 +56,33 @@ class ConversationChatViewModel @Inject constructor(
             is ConversationChatEvent.SendMessage -> {
                 viewModelScope.launch {
                     try {
-                        messageUseCases.addMessage(
-                            Message(
-                                id = null,
-                                recipientPhoneNumber = contactWithMessagesState.value.contact.phoneNumber,
-                                recipientId = contactWithMessagesState.value.contact.id,
-                                content = currentlyTypedMessage.value,
-                                isIncoming = false,
-                                hasTransmitted = TransmissionStatus.SENDING,
-                                timestamp = System.currentTimeMillis()
+                        if (event.context.checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+                            throw Exception("Permission for sending SMS has been denied.")
+                        }
+                            messageUseCases.addMessage(
+                                Message(
+                                    id = null,
+                                    recipientPhoneNumber = contactWithMessagesState.value.contact.phoneNumber,
+                                    recipientId = contactWithMessagesState.value.contact.id,
+                                    content = currentlyTypedMessage.value,
+                                    isIncoming = false,
+                                    hasTransmitted = TransmissionStatus.SENDING,
+                                    timestamp = System.currentTimeMillis()
+                                )
                             )
-                        )
+                            event.context.getSystemService(SmsManager::class.java).sendTextMessage(
+                                contactWithMessagesState.value.contact.phoneNumber,
+                                null,
+                                currentlyTypedMessage.value,
+                                null,
+                                null
+                            )
+
                         _eventFlow.emit(UiEvent.SendMessage)
-                    } catch (e: InvalidMessageException) {
+                    } catch (e: java.lang.Exception) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message?: "Couldn't send message!"
+                                message = e.message ?: "Couldn't send message!"
                             )
                         )
                     }

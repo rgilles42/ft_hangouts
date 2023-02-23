@@ -3,7 +3,6 @@ package fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -65,7 +64,8 @@ fun ConversationChatScreen(
                     ) {
                         if (contactWithMessagesState.contact.picturePath.isNotBlank() && File(context.filesDir, contactWithMessagesState.contact.picturePath).exists()) {
                             Card(
-                                Modifier.size(65.dp)
+                                Modifier
+                                    .size(65.dp)
                                     .padding(8.dp),
                                 shape = CircleShape,
                                 colors = CardDefaults.cardColors()
@@ -146,14 +146,13 @@ fun ConversationChatScreen(
                         Text("Message...")
                     },
                     trailingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Send,
-                            contentDescription = "Send message",
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.clickable {
-                                viewModel.onEvent(ConversationChatEvent.SendMessage)
-                            }
-                        )
+                        IconButton(onClick = { viewModel.onEvent(ConversationChatEvent.SendMessage(context)) }) {
+                            Icon(
+                                imageVector = Icons.Default.Send,
+                                contentDescription = "Send message",
+                                tint = MaterialTheme.colorScheme.onBackground,
+                            )
+                        }
                     },
                     shape = MaterialTheme.shapes.medium
                 )
