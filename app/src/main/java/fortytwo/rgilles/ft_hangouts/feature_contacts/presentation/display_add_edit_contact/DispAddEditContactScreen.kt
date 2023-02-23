@@ -69,8 +69,6 @@ fun DispAddEditContactScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                //TODO: Add cancel button
-                //TODO: add menu with delete option
                 title = { Text("Edit contact") },
 //                colors = TopAppBarDefaults.smallTopAppBarColors(
 //                    containerColor = MaterialTheme.colorScheme.background,
