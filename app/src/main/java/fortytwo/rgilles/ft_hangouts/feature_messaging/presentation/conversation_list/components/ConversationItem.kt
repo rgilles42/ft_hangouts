@@ -43,7 +43,7 @@ fun ConversationItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Card(
-                modifier.size(50.dp),
+                Modifier.size(50.dp),
                 shape = CircleShape,
                 colors = CardDefaults.cardColors()
             ) {
@@ -60,7 +60,7 @@ fun ConversationItem(
                     }
                 } else {
                     Icon(
-                        modifier = modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize()
                             .padding(5.dp),
                         imageVector = Icons.Default.PersonOutline,
                         contentDescription = null,
@@ -68,15 +68,15 @@ fun ConversationItem(
                     )
                 }
             }
-            Spacer(modifier = modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(30.dp))
             Column {
                 Text(
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     text = formContactName(contactWithMessages.contact),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     text = formMessageText(contactWithMessages),
                     style = MaterialTheme.typography.bodyMedium
                 )

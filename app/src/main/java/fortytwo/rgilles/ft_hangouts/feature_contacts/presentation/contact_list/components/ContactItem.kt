@@ -3,7 +3,6 @@ package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -55,7 +54,7 @@ fun ContactItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Card(
-                modifier.size(50.dp),
+                Modifier.size(50.dp),
                 shape = CircleShape,
                 colors = CardDefaults.cardColors()
             ) {
@@ -72,7 +71,8 @@ fun ContactItem(
                     }
                 } else {
                     Icon(
-                        modifier = modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
                             .padding(5.dp),
                         imageVector = Icons.Default.PersonOutline,
                         contentDescription = null,
@@ -80,41 +80,43 @@ fun ContactItem(
                     )
                 }
             }
-            Spacer(modifier = modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(30.dp))
             Text(
-                modifier = modifier,
+                modifier = Modifier,
                 text = formContactName(contact),
                 style = MaterialTheme.typography.titleLarge
             )
-            Spacer(modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
             if (contact.phoneNumber.isNotBlank()) {
-                Icon(
-                    modifier = modifier
-                        .padding(5.dp)
-                        .fillMaxHeight()
-                        .clickable {
-                            navController.navigate(
-                                Screen.ConversationChatScreen.route +
-                                        "?contactId=${contact.id}"
-                            )
-                        },
-                    imageVector = Icons.Outlined.Message,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                IconButton(onClick = {
+                    navController.navigate(
+                    Screen.ConversationChatScreen.route +
+                            "?contactId=${contact.id}"
+                    )
+                }) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .fillMaxHeight(),
+                        imageVector = Icons.Outlined.Message,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
             if (contact.email.isNotBlank()) {
-                Icon(
-                    modifier = modifier
-                        .padding(5.dp)
-                        .fillMaxHeight()
-                        .clickable {
-                            //TODO
-                        },
-                    imageVector = Icons.Outlined.Email,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                IconButton(onClick = {
+                    //TODO
+                }) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .fillMaxHeight(),
+                        imageVector = Icons.Outlined.Email,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         }
     }
