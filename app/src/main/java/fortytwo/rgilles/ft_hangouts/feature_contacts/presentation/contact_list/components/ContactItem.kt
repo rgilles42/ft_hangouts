@@ -121,7 +121,7 @@ fun ContactItem(
                 Spacer(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .padding(6.dp)
+                        .aspectRatio(0.8f)
                 )
             }
         }
