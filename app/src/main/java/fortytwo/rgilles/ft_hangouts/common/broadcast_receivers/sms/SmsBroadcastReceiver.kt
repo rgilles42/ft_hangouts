@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.common.broadcast_receiver
+package fortytwo.rgilles.ft_hangouts.common.broadcast_receivers.sms
 
 import android.content.BroadcastReceiver
 import android.content.Context

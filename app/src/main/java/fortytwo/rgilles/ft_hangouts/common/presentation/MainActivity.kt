@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import fortytwo.rgilles.ft_hangouts.common.broadcast_receiver.SmsBroadcastReceiver
+import fortytwo.rgilles.ft_hangouts.common.broadcast_receivers.sms.SmsBroadcastReceiver
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.ContactListScreen
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.display_add_edit_contact.DispAddEditContactScreen
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen

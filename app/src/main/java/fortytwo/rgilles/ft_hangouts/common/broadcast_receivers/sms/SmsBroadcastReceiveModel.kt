@@ -1,4 +1,4 @@
-package fortytwo.rgilles.ft_hangouts.common.broadcast_receiver
+package fortytwo.rgilles.ft_hangouts.common.broadcast_receivers.sms
 
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
