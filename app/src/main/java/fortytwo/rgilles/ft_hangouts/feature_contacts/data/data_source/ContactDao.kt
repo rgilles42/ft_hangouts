@@ -18,6 +18,8 @@ interface ContactDao {
     @Query("SELECT * FROM contact WHERE id = :id")
     fun         getContactWithMessages(id: Int): Flow<ContactWithMessages>
 
+    @Query("SELECT * FROM contact")
+    suspend fun getInstantaneousContacts(): List<Contact>
     @Query("SELECT * FROM contact WHERE id = :id")
     suspend fun getContactById(id: Int): Contact?
 

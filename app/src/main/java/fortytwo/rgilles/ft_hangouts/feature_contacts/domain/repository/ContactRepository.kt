@@ -8,6 +8,7 @@ interface ContactRepository {
     fun         getContacts(): Flow<List<Contact>>
     fun         getContactsWithActiveConvs(): Flow<List<ContactWithMessages>>
     fun         getContactWithMessages(id: Int): Flow<ContactWithMessages>
+    suspend fun getInstantaneousContacts(): List<Contact>
     suspend fun getContactById(id: Int): Contact?
     suspend fun insertContact(contact: Contact)
     suspend fun deleteContact(contact: Contact)

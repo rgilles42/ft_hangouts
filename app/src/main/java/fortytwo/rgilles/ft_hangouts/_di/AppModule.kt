@@ -47,6 +47,7 @@ object AppModule {
             getContacts = GetContactsUseCase(repository),
             getContactsWithActiveConvs = GetContactsWithActiveConvsUseCase(repository),
             getContactWithMessages = GetContactWithMessagesUseCase(repository),
+            getInstantaneousContacts = GetInstantaneousContactsUseCase(repository),
             getContact = GetContactUseCase(repository),
             deleteContact = DeleteContactUseCase(repository),
             addContact = AddContactUseCase(repository)

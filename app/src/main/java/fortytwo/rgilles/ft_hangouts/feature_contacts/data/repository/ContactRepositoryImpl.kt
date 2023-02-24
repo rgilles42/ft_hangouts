@@ -27,6 +27,10 @@ class ContactRepositoryImpl(
         return dao.getContactWithMessages(id)
     }
 
+    override suspend fun getInstantaneousContacts(): List<Contact> {
+        return dao.getInstantaneousContacts()
+    }
+
     override suspend fun getContactById(id: Int): Contact? {
         return dao.getContactById(id)
     }
