@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
     private var timestamp = 0L
     private val _timestampEventFlow = MutableSharedFlow<ShowTimestampEvent>()
-    val timestampEventFlow = _timestampEventFlow.asSharedFlow()
+    private val timestampEventFlow = _timestampEventFlow.asSharedFlow()
     data class ShowTimestampEvent(val timestamp: Long)
 
     override fun onCreate(savedInstanceState: Bundle?) {
