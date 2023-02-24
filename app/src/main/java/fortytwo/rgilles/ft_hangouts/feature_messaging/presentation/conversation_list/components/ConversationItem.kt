@@ -68,7 +68,7 @@ fun ConversationItem(
                     )
                 }
             }
-            Spacer(modifier = Modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(15.dp))
             Column {
                 Text(
                     modifier = Modifier.fillMaxWidth(),

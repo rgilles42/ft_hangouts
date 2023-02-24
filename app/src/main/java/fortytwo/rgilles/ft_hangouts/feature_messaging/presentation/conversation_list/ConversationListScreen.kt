@@ -65,7 +65,7 @@ fun ConversationListScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(values)
-                .padding(5.dp)
+                .padding(horizontal = 3.dp)
         ) {
             items(contactListWithConvs) { contactWithMessages ->
                 ConversationItem(
