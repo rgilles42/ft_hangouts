@@ -9,7 +9,6 @@ sealed class DispAddEditContactEvent {
     data class EnteredPhoneNumber(val value: String): DispAddEditContactEvent()
     data class EnteredEmail(val value: String): DispAddEditContactEvent()
     data class ChangedPicture(val uri: Uri?, val context: Context): DispAddEditContactEvent()
-    //data class ChangedBirthday(val date: LocalDate?): DispAddEditContactEvent()
     object SaveContact: DispAddEditContactEvent()
     object DeleteContact: DispAddEditContactEvent()
 }

@@ -39,7 +39,6 @@ fun DispAddEditContactScreen(
     val phoneNumberState = viewModel.contactPhoneNumber.value
     val emailState = viewModel.contactEmail.value
     val picturePathState = viewModel.contactPicturePath.value
-    //val birthdayState = viewModel.contactBirthday.value
 
     val bitmap =  remember {
         mutableStateOf<Bitmap?>(null)
@@ -239,16 +238,6 @@ fun DispAddEditContactScreen(
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
-            //TODO: Birthday
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Icon(
-//                    imageVector = Icons.Outlined.Cake,
-//                    contentDescription = "",
-//                    Modifier.size(30.dp)
-//                )
-//                Spacer(Modifier.size(10.dp))
-//                DatePicker()
-//            }
         }
     }
 }

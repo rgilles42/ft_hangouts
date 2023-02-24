@@ -37,9 +37,6 @@ class DispAddEditContactViewModel @Inject constructor(
     private val _contactPicturePath = mutableStateOf("")
     val contactPicturePath: State<String> = _contactPicturePath
 
-//    private val _contactBirthday = mutableStateOf<LocalDate?>(null)
-//    val contactBirthday: State<LocalDate?> = _contactBirthday
-
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -56,7 +53,6 @@ class DispAddEditContactViewModel @Inject constructor(
                         _contactEmail.value = it.email
                         _contactPhoneNumber.value = it.phoneNumber
                         _contactPicturePath.value = it.picturePath
-                        //_contactBirthday.value = it.birthday
                     }
                 }
             }
@@ -68,9 +64,6 @@ class DispAddEditContactViewModel @Inject constructor(
             is DispAddEditContactEvent.EnteredFirstName -> {
                 _contactFirstName.value = event.value
             }
-//            is DispAddEditContactEvent.ChangedBirthday -> {
-//                _contactBirthday.value = event.date
-//            }
             is DispAddEditContactEvent.EnteredEmail -> {
                 _contactEmail.value = event.value
             }
@@ -108,7 +101,6 @@ class DispAddEditContactViewModel @Inject constructor(
                                 phoneNumber = contactPhoneNumber.value,
                                 email = contactEmail.value,
                                 picturePath = contactPicturePath.value,
-                                //birthday = contactBirthday.value,
                                 id = currentContactId
                             )
                         )
@@ -132,7 +124,6 @@ class DispAddEditContactViewModel @Inject constructor(
                                 phoneNumber = contactPhoneNumber.value,
                                 email = contactEmail.value,
                                 picturePath = contactPicturePath.value,
-                                //birthday = contactBirthday.value,
                                 id = currentContactId
                             )
                         )

@@ -1,6 +1,5 @@
 package fortytwo.rgilles.ft_hangouts.common.broadcast_receiver
 
-import android.util.Log
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
 import fortytwo.rgilles.ft_hangouts.feature_messaging.domain.model.Message
@@ -22,7 +21,6 @@ class SmsBroadcastReceiveModel @Inject constructor(
                 if (event.messageSender == null) { return }
                 coroutineScope.launch {
                     contactList = contactUseCases.getInstantaneousContacts()
-                    Log.d("DWEBUG :3", contactList.toString())
                     if (!contactList.any {  it.phoneNumber == event.messageSender }) {
                         contactUseCases.addContact(
                             Contact(
