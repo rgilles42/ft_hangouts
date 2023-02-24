@@ -129,8 +129,10 @@ class DispAddEditContactViewModel @Inject constructor(
                         )
                         _eventFlow.emit(UiEvent.DeletedContact)
                     } catch (e: java.lang.Exception) {
-                        UiEvent.ShowSnackbar(
-                            message = e.message?: "Couldn't delete contact!"
+                        _eventFlow.emit(
+                            UiEvent.ShowSnackbar(
+                                message = e.message?: "Couldn't delete contact!"
+                            )
                         )
                     }
                 }
