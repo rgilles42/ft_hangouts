@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.formContactName
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_chat.components.ChatItem
 import kotlinx.coroutines.flow.SharedFlow
@@ -46,7 +47,7 @@ fun ConversationChatScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
         }
         viewModel.eventFlow.collectLatest { event ->
             when (event) {

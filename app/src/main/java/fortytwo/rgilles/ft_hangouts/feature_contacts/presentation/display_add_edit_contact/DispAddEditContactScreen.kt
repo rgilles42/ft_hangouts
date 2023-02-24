@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import java.io.File
@@ -54,7 +55,7 @@ fun DispAddEditContactScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
         }
         viewModel.eventFlow.collectLatest { event ->
             when(event) {

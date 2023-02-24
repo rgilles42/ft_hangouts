@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 
@@ -35,7 +36,7 @@ fun ContactListScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
         }
     }
 

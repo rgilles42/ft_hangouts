@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
+import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list.components.ConversationItem
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +35,7 @@ fun ConversationListScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
         }
     }
 
