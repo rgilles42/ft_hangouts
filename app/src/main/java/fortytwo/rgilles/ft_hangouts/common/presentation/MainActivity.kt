@@ -26,6 +26,7 @@ import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private var isSmsBRRegistered = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +94,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isSmsBRRegistered) {
+            unregisterReceiver(SmsBroadcastReceiver())
+        }
+    }
+
     private fun areSmsPermissionsGranted(): Boolean {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) == PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PERMISSION_GRANTED
@@ -105,6 +113,7 @@ class MainActivity : ComponentActivity() {
             IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION),
             ActivityCompat.RECEIVER_EXPORTED
         )
+        isSmsBRRegistered = true
     }
 
     private val requestPermissionsLauncher = registerForActivityResult(
