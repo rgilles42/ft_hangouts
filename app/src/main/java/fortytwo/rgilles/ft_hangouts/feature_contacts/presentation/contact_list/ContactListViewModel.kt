@@ -5,14 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.util.ContactOrder
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.util.OrderType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +22,6 @@ class ContactListViewModel @Inject constructor(
     //store if order selector is displayed or not
     private val _state = mutableStateOf(ContactListState())
     val state: State<ContactListState> = _state
-
-    private var lastDeletedContact: Contact? = null
 
     private var getContactsJob: Job? = null
 
@@ -41,18 +37,6 @@ class ContactListViewModel @Inject constructor(
                     return
                 }
                 getContacts(event.contactOrder)
-            }
-            is ContactListEvent.DeleteContact -> {
-                viewModelScope.launch {
-                    lastDeletedContact = event.contact
-                    contactUseCases.deleteContact(event.contact)
-                }
-            }
-            is ContactListEvent.RestoreContact -> {
-                viewModelScope.launch {
-                    contactUseCases.addContact(lastDeletedContact ?: return@launch)
-                    lastDeletedContact = null
-                }
             }
             is ContactListEvent.ToggleOrderSection -> {
                 _state.value = state.value.copy(
