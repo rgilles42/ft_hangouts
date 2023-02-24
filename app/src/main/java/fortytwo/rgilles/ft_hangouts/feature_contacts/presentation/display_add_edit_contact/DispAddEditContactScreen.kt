@@ -23,6 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import java.io.File
 
@@ -30,6 +32,7 @@ import java.io.File
 @Composable
 fun DispAddEditContactScreen(
     navController: NavController,
+    timestampEventFlow: SharedFlow<MainActivity.ShowTimestampEvent>,
     viewModel: DispAddEditContactViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -50,6 +53,9 @@ fun DispAddEditContactScreen(
     val snackbarHostState = remember { SnackbarHostState()}
 
     LaunchedEffect(key1 = true) {
+        timestampEventFlow.collectLatest { showTimestampEvent ->
+            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+        }
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
                 is DispAddEditContactViewModel.UiEvent.ShowSnackbar -> {

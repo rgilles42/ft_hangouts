@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.*
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,10 +24,18 @@ import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_chat.ConversationChatScreen
 import fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_list.ConversationListScreen
 import fortytwo.rgilles.ft_hangouts.ui.theme.Ft_hangoutsTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var isSmsBRRegistered = false
+
+    private var timestamp = 0L
+    private val _timestampEventFlow = MutableSharedFlow<ShowTimestampEvent>()
+    val timestampEventFlow = _timestampEventFlow.asSharedFlow()
+    data class ShowTimestampEvent(val timestamp: Long)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.ContactListScreen.route
                         ) {
-                            ContactListScreen(navController = navController)
+                            ContactListScreen(navController = navController, timestampEventFlow)
                         }
                         composable(
                             route = Screen.DispAddEditContactScreen.route +
@@ -69,10 +78,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            DispAddEditContactScreen(navController = navController)
+                            DispAddEditContactScreen(navController = navController, timestampEventFlow)
                         }
                         composable(route = Screen.ConversationListScreen.route) {
-                            ConversationListScreen(navController = navController)
+                            ConversationListScreen(navController = navController, timestampEventFlow)
                         }
                         composable(
                             route = Screen.ConversationChatScreen.route +
@@ -86,10 +95,26 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
-                            ConversationChatScreen(navController = navController)
+                            ConversationChatScreen(navController = navController, timestampEventFlow)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timestamp = System.currentTimeMillis()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (timestamp != 0L) {
+            lifecycleScope.launch {
+                _timestampEventFlow.emit(
+                    ShowTimestampEvent(timestamp)
+                )
             }
         }
     }

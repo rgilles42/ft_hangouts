@@ -11,22 +11,33 @@ import androidx.compose.material.icons.filled.Contacts
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactListScreen(
     navController: NavController,
+    timestampEventFlow: SharedFlow<MainActivity.ShowTimestampEvent>,
     viewModel: ContactListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = true) {
+        timestampEventFlow.collectLatest { showTimestampEvent ->
+            snackbarHostState.showSnackbar("Resuming from pause at ${showTimestampEvent.timestamp}")
+        }
+    }
 
     Scaffold(
         topBar = {
