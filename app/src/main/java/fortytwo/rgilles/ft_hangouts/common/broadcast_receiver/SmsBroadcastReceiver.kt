@@ -4,15 +4,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony.Sms.Intents.getMessagesFromIntent
-import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SmsBroadcastReceiver : BroadcastReceiver() {
+    @Inject
     lateinit var receiveModel: SmsBroadcastReceiveModel
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d("DWEBUG", "SMS received")
         if (intent == null) {
             return
         } else {

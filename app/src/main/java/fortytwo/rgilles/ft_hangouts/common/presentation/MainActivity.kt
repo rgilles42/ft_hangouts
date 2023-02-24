@@ -5,7 +5,6 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.provider.Telephony
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -104,9 +103,8 @@ class MainActivity : ComponentActivity() {
             this,
             SmsBroadcastReceiver(),
             IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION),
-            ActivityCompat.RECEIVER_NOT_EXPORTED
+            ActivityCompat.RECEIVER_EXPORTED
         )
-        Log.d("DEBUG", "SMS receiver registered")
     }
 
     private val requestPermissionsLauncher = registerForActivityResult(
