@@ -79,10 +79,6 @@ fun DispAddEditContactScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Edit contact") },
-//                colors = TopAppBarDefaults.smallTopAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.background,
-//                    titleContentColor = MaterialTheme.colorScheme.onBackground
-//                )
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(

@@ -99,10 +99,10 @@ fun ConversationChatScreen(
                         Text(formContactName(contactWithMessagesState.contact))
                     }
                 },
-//                colors = TopAppBarDefaults.smallTopAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-//                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-//                ),
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
