@@ -57,6 +57,9 @@ fun DispAddEditContactScreen(
         timestampEventFlow.collectLatest { showTimestampEvent ->
             snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
         }
+    }
+
+    LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
                 is DispAddEditContactViewModel.UiEvent.ShowSnackbar -> {
