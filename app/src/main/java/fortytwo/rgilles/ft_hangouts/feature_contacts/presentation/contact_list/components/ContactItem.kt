@@ -1,7 +1,9 @@
 package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +21,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.model.Contact
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
@@ -89,7 +92,9 @@ fun ContactItem(
             Spacer(modifier = Modifier.weight(1f))
             if (contact.email.isNotBlank()) {
                 IconButton(onClick = {
-                    //TODO
+                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${contact.email}"))
+                    startActivity(context, intent, null)
+
                 }) {
                     Icon(
                         modifier = Modifier

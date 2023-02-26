@@ -1,7 +1,9 @@
 package fortytwo.rgilles.ft_hangouts.feature_messaging.presentation.conversation_chat
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,6 +22,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
@@ -110,7 +113,11 @@ fun ConversationChatScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        /*TODO*/
+                        startActivity(
+                            context,
+                            Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", contactWithMessagesState.contact.phoneNumber, null)),
+                            null
+                        )
                     }) {
                         Icon(
                             imageVector = Icons.Default.Phone,
