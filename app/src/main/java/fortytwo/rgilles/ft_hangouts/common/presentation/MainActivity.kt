@@ -31,6 +31,14 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var isSmsBRRegistered = false
+    private val smsBroadcastReceiver = SmsBroadcastReceiver()
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { mapOfGrants ->
+        if (mapOfGrants[Manifest.permission.RECEIVE_SMS] == true) {
+            registerSmsReceiver()
+        }
+    }
 
     private var timestamp = 0L
     private val _timestampEventFlow = MutableSharedFlow<ShowTimestampEvent>()
@@ -122,7 +130,7 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (isSmsBRRegistered) {
-            unregisterReceiver(SmsBroadcastReceiver())
+            unregisterReceiver(smsBroadcastReceiver)
         }
     }
 
@@ -134,18 +142,10 @@ class MainActivity : ComponentActivity() {
     private fun registerSmsReceiver() {
         ActivityCompat.registerReceiver(
             this,
-            SmsBroadcastReceiver(),
+            smsBroadcastReceiver,
             IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION),
             ActivityCompat.RECEIVER_EXPORTED
         )
         isSmsBRRegistered = true
-    }
-
-    private val requestPermissionsLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { mapOfGrants ->
-        if (mapOfGrants[Manifest.permission.RECEIVE_SMS] == true) {
-            registerSmsReceiver()
-        }
     }
 }
