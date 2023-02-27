@@ -21,11 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.R
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import kotlinx.coroutines.flow.SharedFlow
@@ -58,7 +60,10 @@ fun DispAddEditContactScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
+            snackbarHostState.showSnackbar(
+                context.getString(R.string.snackbar_resume) + getFormattedDate(
+                showTimestampEvent.timestamp
+            ))
         }
     }
 
@@ -81,12 +86,12 @@ fun DispAddEditContactScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Edit contact") },
+                title = { Text(stringResource(R.string.edit_contact_title)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Go back to contact list"
+                            contentDescription = stringResource(R.string.edit_contact_cancel_buttonIcon)
                         )
                     }
                 },
@@ -97,7 +102,7 @@ fun DispAddEditContactScreen(
                         }) {
                             Icon(
                                 imageVector = Icons.Default.Delete,
-                                contentDescription = "Delete contact"
+                                contentDescription = stringResource(R.string.edit_contact_delete_buttonIcon)
                             )
                         }
                     }
@@ -111,7 +116,7 @@ fun DispAddEditContactScreen(
             }) {
                 Icon(
                     imageVector = Icons.Default.Save,
-                    contentDescription = "Save contact",
+                    contentDescription = stringResource(R.string.edit_contact_save_buttonIcon),
                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
@@ -162,14 +167,14 @@ fun DispAddEditContactScreen(
             if (picturePathState.isNotBlank()) {
                 Row(horizontalArrangement = Arrangement.SpaceAround) {
                     Text(
-                        text = "Change",
+                        text = stringResource(R.string.edit_contact_change_picture),
                         modifier = Modifier.clickable {
                             imagePickerLauncher.launch("image/*")
                         }
                     )
                     Spacer(Modifier.size(10.dp))
                     Text(
-                        text = "Remove",
+                        text = stringResource(R.string.edit_contact_remove_picture),
                         modifier = Modifier.clickable {
                             viewModel.onEvent(DispAddEditContactEvent.ChangedPicture(null, context))
                         }
@@ -177,7 +182,7 @@ fun DispAddEditContactScreen(
                 }
             } else {
                 Text(
-                    text = "Add picture",
+                    text = stringResource(R.string.edit_contact_add_picture),
                     modifier = Modifier.clickable {
                         imagePickerLauncher.launch("image/*")
                     }
@@ -187,7 +192,7 @@ fun DispAddEditContactScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Outlined.Person,
-                    contentDescription = "",
+                    contentDescription = null,
                     Modifier.size(30.dp)
                 )
                 Spacer(Modifier.size(10.dp))
@@ -197,7 +202,7 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredFirstName(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("First Name") },
+                    label = { Text(stringResource(R.string.edit_contact_first_name)) },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         autoCorrect = false,
                         capitalization = KeyboardCapitalization.Words
@@ -214,7 +219,7 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredLastName(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Last Name") },
+                    label = { Text(stringResource(R.string.edit_contact_last_name)) },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         autoCorrect = false,
                         capitalization = KeyboardCapitalization.Words
@@ -226,7 +231,7 @@ fun DispAddEditContactScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Outlined.Phone,
-                    contentDescription = "",
+                    contentDescription = null,
                     Modifier.size(30.dp)
                 )
                 Spacer(Modifier.size(10.dp))
@@ -236,7 +241,7 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredPhoneNumber(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Phone Number") },
+                    label = { Text(stringResource(R.string.edit_contact_phone_number)) },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Phone
                     ),
@@ -247,7 +252,7 @@ fun DispAddEditContactScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Outlined.Email,
-                    contentDescription = "",
+                    contentDescription = null,
                     Modifier.size(30.dp)
                 )
                 Spacer(Modifier.size(10.dp))
@@ -257,7 +262,7 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredEmail(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Email Address") },
+                    label = { Text(stringResource(R.string.edit_contact_email_address)) },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         autoCorrect = false,
                         keyboardType = KeyboardType.Email

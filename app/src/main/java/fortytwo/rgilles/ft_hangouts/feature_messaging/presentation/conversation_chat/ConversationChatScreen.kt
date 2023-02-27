@@ -22,12 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.R
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.formContactName
@@ -53,7 +55,10 @@ fun ConversationChatScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
+            snackbarHostState.showSnackbar(
+                context.getString(R.string.snackbar_resume) + getFormattedDate(
+                showTimestampEvent.timestamp
+            ))
         }
     }
 
@@ -128,7 +133,7 @@ fun ConversationChatScreen(
                     }) {
                         Icon(
                             imageVector = Icons.Default.Phone,
-                            contentDescription = "Call contact"
+                            contentDescription = stringResource(R.string.alt_text_call)
                         )
                     }
                 }
@@ -167,13 +172,13 @@ fun ConversationChatScreen(
                         .fillMaxWidth()
                         .padding(10.dp),
                     placeholder = {
-                        Text("Message...")
+                        Text(stringResource(R.string.chat_screen_input_placeholder))
                     },
                     trailingIcon = {
                         IconButton(onClick = { viewModel.onEvent(ConversationChatEvent.SendMessage(context)) }) {
                             Icon(
                                 imageVector = Icons.Default.Send,
-                                contentDescription = "Send message",
+                                contentDescription = stringResource(R.string.alt_text_send_message_buttonIcon),
                                 tint = MaterialTheme.colorScheme.onBackground,
                             )
                         }

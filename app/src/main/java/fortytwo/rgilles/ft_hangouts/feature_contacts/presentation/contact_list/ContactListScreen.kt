@@ -14,9 +14,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.R
 import fortytwo.rgilles.ft_hangouts.common.colourMap
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
@@ -39,21 +41,25 @@ fun ContactListScreen(
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
+            snackbarHostState.showSnackbar(
+                context.getString(R.string.snackbar_resume) + getFormattedDate(
+                    showTimestampEvent.timestamp
+                )
+            )
         }
     }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("ft_hangouts") },
+                title = { Text(stringResource(R.string.app_name)) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 actions = {
                     IconButton(onClick = { expanded.value = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Settings")
+                        Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.alt_text_settings_buttonIcon))
                     }
                     DropdownMenu(
                         expanded = expanded.value,
@@ -74,14 +80,14 @@ fun ContactListScreen(
                 NavigationBarItem(
                     selected = true,
                     onClick = {},
-                    icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = "Contacts") },
-                    label = { Text("Contacts") }
+                    icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = null) },
+                    label = { Text(stringResource(R.string.navigation_contacts)) }
                 )
                 NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate(Screen.ConversationListScreen.route) },
-                    icon = { Icon(imageVector = Icons.Filled.Message, contentDescription = "Conversations") },
-                    label = { Text("Conversations") }
+                    icon = { Icon(imageVector = Icons.Filled.Message, contentDescription = null) },
+                    label = { Text(stringResource(R.string.navigation_conversations)) }
                 )
             }
                     },
@@ -94,7 +100,7 @@ fun ContactListScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add Contact",
+                    contentDescription = stringResource(R.string.alt_text_add_contact),
                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }

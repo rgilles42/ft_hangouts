@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alt_text_add_contact">Kontakt hinzufügen</string>
+    <string name="alt_text_settings_buttonIcon">Einstellungen</string>
+    <string name="navigation_contacts">Kontakte</string>
+    <string name="navigation_conversations">Konversationen</string>
+    <string name="snackbar_resume">"Fortgesetzt nach Pause bei "</string>
+    <string name="alt_text_call">Kontakt anrufen</string>
+    <string name="chat_screen_input_placeholder">Nachricht…</string>
+    <string name="alt_text_send_message_buttonIcon">Nachricht senden</string>
+    <string name="edit_contact_title">Kontakt bearbeiten</string>
+    <string name="edit_contact_cancel_buttonIcon">Stornieren</string>
+    <string name="edit_contact_delete_buttonIcon">Kontakt löschen</string>
+    <string name="edit_contact_save_buttonIcon">Kontakt speichern</string>
+    <string name="edit_contact_change_picture">Bearbeiten</string>
+    <string name="edit_contact_remove_picture">Löschen</string>
+    <string name="edit_contact_add_picture">Bild hinzufügen</string>
+    <string name="edit_contact_first_name">Vorname</string>
+    <string name="edit_contact_last_name">Nachname</string>
+    <string name="edit_contact_phone_number">Telefonnummer</string>
+    <string name="edit_contact_email_address">Email Adresse</string>
+</resources>

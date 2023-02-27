@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">ft_hangouts</string>
+    <string name="app_name" translatable="false">ft_hangouts</string>
+    <string name="alt_text_add_contact">Add Contact</string>
+    <string name="alt_text_settings_buttonIcon">Settings</string>
+    <string name="navigation_contacts">Contacts</string>
+    <string name="navigation_conversations">Conversations</string>
+    <string name="snackbar_resume">"Resuming from pause at "</string>
+    <string name="alt_text_call">Call contact</string>
+    <string name="chat_screen_input_placeholder">Message…</string>
+    <string name="alt_text_send_message_buttonIcon">Send message</string>
+    <string name="edit_contact_title">Edit contact</string>
+    <string name="edit_contact_cancel_buttonIcon">Cancel</string>
+    <string name="edit_contact_delete_buttonIcon">Delete contact</string>
+    <string name="edit_contact_save_buttonIcon">Save contact</string>
+    <string name="edit_contact_change_picture">Change</string>
+    <string name="edit_contact_remove_picture">Remove</string>
+    <string name="edit_contact_add_picture">Add picture</string>
+    <string name="edit_contact_first_name">First Name</string>
+    <string name="edit_contact_last_name">Last Name</string>
+    <string name="edit_contact_phone_number">Phone Number</string>
+    <string name="edit_contact_email_address">Email Address</string>
 </resources>

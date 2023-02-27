@@ -13,9 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.R
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.getFormattedDate
@@ -32,17 +35,22 @@ fun ConversationListScreen(
 ) {
     val contactListWithConvs = viewModel.contactListWithConvsState.value
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
-            snackbarHostState.showSnackbar("Resuming from pause at ${getFormattedDate(showTimestampEvent.timestamp)}")
+            snackbarHostState.showSnackbar(
+                context.getString(R.string.snackbar_resume) + getFormattedDate(
+                    showTimestampEvent.timestamp
+                )
+            )
         }
     }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("ft_hangouts") },
+                title = { Text(stringResource(R.string.app_name)) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -60,14 +68,14 @@ fun ConversationListScreen(
                             }
                         }
                               },
-                    icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = "Contacts") },
-                    label = { Text("Contacts") }
+                    icon = { Icon(imageVector = Icons.Filled.Contacts, contentDescription = null) },
+                    label = { Text(stringResource(R.string.navigation_contacts)) }
                 )
                 NavigationBarItem(
                     selected = true,
                     onClick = {},
-                    icon = { Icon(imageVector = Icons.Filled.Message, contentDescription = "Conversations") },
-                    label = { Text("Conversations") }
+                    icon = { Icon(imageVector = Icons.Filled.Message, contentDescription = null) },
+                    label = { Text(stringResource(R.string.navigation_conversations)) }
                 )
             }
         },
