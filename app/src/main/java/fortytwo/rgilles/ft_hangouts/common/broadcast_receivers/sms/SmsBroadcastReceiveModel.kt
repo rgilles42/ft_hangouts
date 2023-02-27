@@ -21,30 +21,32 @@ class SmsBroadcastReceiveModel @Inject constructor(
                 if (event.messageSender == null) { return }
                 coroutineScope.launch {
                     contactList = contactUseCases.getInstantaneousContacts()
-                    if (!contactList.any {  it.phoneNumber == event.messageSender }) {
-                        contactUseCases.addContact(
-                            Contact(
-                                firstName = event.messageSender,
-                                lastName = "",
-                                phoneNumber = event.messageSender,
-                                email = "",
-                                picturePath = "",
-                                id = null
+                    try {
+                        if (!contactList.any {  it.phoneNumber == event.messageSender }) {
+                            contactUseCases.addContact(
+                                Contact(
+                                    firstName = event.messageSender,
+                                    lastName = "",
+                                    phoneNumber = event.messageSender,
+                                    email = "",
+                                    picturePath = "",
+                                    id = null
+                                )
+                            )
+                            contactList = contactUseCases.getInstantaneousContacts()
+                        }
+                        messagesUseCases.addMessage(
+                            Message(
+                                id = null,
+                                recipientPhoneNumber = event.messageSender,
+                                recipientId = contactList.filter { it.phoneNumber == event.messageSender }[0].id,
+                                content = event.messageContent,
+                                isIncoming = true,
+                                hasTransmitted = TransmissionStatus.RECEIVED,
+                                timestamp = System.currentTimeMillis()
                             )
                         )
-                        contactList = contactUseCases.getInstantaneousContacts()
-                    }
-                    messagesUseCases.addMessage(
-                        Message(
-                            id = null,
-                            recipientPhoneNumber = event.messageSender,
-                            recipientId = contactList.filter { it.phoneNumber == event.messageSender }[0].id,
-                            content = event.messageContent,
-                            isIncoming = true,
-                            hasTransmitted = TransmissionStatus.RECEIVED,
-                            timestamp = System.currentTimeMillis()
-                        )
-                    )
+                    } catch (_: Exception) {}
                 }
             }
         }
