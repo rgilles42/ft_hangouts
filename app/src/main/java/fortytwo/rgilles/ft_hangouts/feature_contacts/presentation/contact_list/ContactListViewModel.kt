@@ -37,7 +37,7 @@ class ContactListViewModel @Inject constructor(
             is ContactListEvent.ChangedColour -> {
                 viewModelScope.launch {
                     event.context.dataStore.edit { preferences ->
-                        preferences[fortytwo.rgilles.ft_hangouts.common.PreferencesKeys.COLOUR_ID] = event.colourId
+                        preferences[fortytwo.rgilles.ft_hangouts.common.PreferencesKeys.COLOUR_VALUE] = event.colourValue
                     }
                 }
             }

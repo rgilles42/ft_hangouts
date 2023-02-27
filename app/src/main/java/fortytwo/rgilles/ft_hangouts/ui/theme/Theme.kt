@@ -44,12 +44,12 @@ fun Ft_hangoutsTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val primaryColourState = remember { mutableStateOf(0) }
+    val primaryColourState = remember { mutableStateOf(0L) }
     val colourIdFlow = LocalContext.current.dataStore.data
 
     LaunchedEffect(key1 = true) {
         colourIdFlow.map { preferences ->
-            preferences[PreferencesKeys.COLOUR_ID] ?: 0
+            preferences[PreferencesKeys.COLOUR_VALUE] ?: 0
         }.collectLatest { newColour ->
             primaryColourState.value = newColour
         }
@@ -76,8 +76,8 @@ fun Ft_hangoutsTheme(
     MaterialTheme(
         colorScheme = colorScheme.copy(
             primaryContainer = when (primaryColourState.value) {
-                1 -> Color(0xFFFF00FF)
-                else -> colorScheme.primaryContainer
+                0L -> colorScheme.primaryContainer
+                else -> Color(primaryColourState.value)
             }
         ),
         typography = Typography,

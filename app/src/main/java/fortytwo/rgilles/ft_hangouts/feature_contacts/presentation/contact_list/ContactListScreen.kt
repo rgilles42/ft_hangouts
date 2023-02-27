@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import fortytwo.rgilles.ft_hangouts.common.colourMap
 import fortytwo.rgilles.ft_hangouts.common.presentation.MainActivity
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.ContactItem
 import fortytwo.rgilles.ft_hangouts.common.presentation.util.Screen
@@ -58,10 +59,12 @@ fun ContactListScreen(
                         expanded = expanded.value,
                         onDismissRequest = { expanded.value = false }
                     ) {
-                        DropdownMenuItem(
-                            text = { Text("Edit") },
-                            onClick = { viewModel.onEvent(ContactListEvent.ChangedColour(context, 1)) }
-                        )
+                        colourMap.forEach { (colourName, colourValue) ->
+                            DropdownMenuItem(
+                                text = { Text(colourName) },
+                                onClick = { viewModel.onEvent(ContactListEvent.ChangedColour(context, colourValue)) }
+                            )
+                        }
                     }
                 }
             )
