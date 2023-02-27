@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Email
@@ -20,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -194,7 +197,12 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredFirstName(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("First Name") }
+                    label = { Text("First Name") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        autoCorrect = false,
+                        capitalization = KeyboardCapitalization.Words
+                    ),
+                    singleLine = true
                 )
             }
             Spacer(modifier = Modifier.size(5.dp))
@@ -206,7 +214,12 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredLastName(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Last Name") }
+                    label = { Text("Last Name") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        autoCorrect = false,
+                        capitalization = KeyboardCapitalization.Words
+                    ),
+                    singleLine = true
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
@@ -223,7 +236,11 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredPhoneNumber(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Phone Number") }
+                    label = { Text("Phone Number") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Phone
+                    ),
+                    singleLine = true
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
@@ -240,7 +257,12 @@ fun DispAddEditContactScreen(
                         viewModel.onEvent(DispAddEditContactEvent.EnteredEmail(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Email Address") }
+                    label = { Text("Email Address") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        autoCorrect = false,
+                        keyboardType = KeyboardType.Email
+                    ),
+                    singleLine = true
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
