@@ -4,13 +4,16 @@ import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import fortytwo.rgilles.ft_hangouts.common.PreferencesKeys
+import fortytwo.rgilles.ft_hangouts.common.dataStore
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -34,9 +37,6 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
-/*val ColorScheme.userPreferencePrimaryContainer: Color
-get() = if (true) Red300 else this@userPreferencePrimaryContainer.primaryContainer*/
-
 @Composable
 fun Ft_hangoutsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -44,6 +44,17 @@ fun Ft_hangoutsTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val primaryColourState = remember { mutableStateOf(0) }
+    val colourIdFlow = LocalContext.current.dataStore.data
+
+    LaunchedEffect(key1 = true) {
+        colourIdFlow.map { preferences ->
+            preferences[PreferencesKeys.COLOUR_ID] ?: 0
+        }.collectLatest { newColour ->
+            primaryColourState.value = newColour
+        }
+    }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -63,7 +74,12 @@ fun Ft_hangoutsTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = colorScheme.copy(
+            primaryContainer = when (primaryColourState.value) {
+                1 -> Color(0xFFFF00FF)
+                else -> colorScheme.primaryContainer
+            }
+        ),
         typography = Typography,
         content = content
     )

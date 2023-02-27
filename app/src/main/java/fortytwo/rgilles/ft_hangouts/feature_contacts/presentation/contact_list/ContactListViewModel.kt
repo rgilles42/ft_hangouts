@@ -2,15 +2,18 @@ package fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fortytwo.rgilles.ft_hangouts.common.dataStore
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.use_case.ContactUseCases
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.util.ContactOrder
 import fortytwo.rgilles.ft_hangouts.feature_contacts.domain.util.OrderType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,17 +34,12 @@ class ContactListViewModel @Inject constructor(
 
     fun onEvent(event: ContactListEvent) {
         when (event) {
-            is ContactListEvent.Order -> {
-                if (state.value.contactOrder::class == event.contactOrder::class &&
-                        state.value.contactOrder.orderType == event.contactOrder.orderType) {
-                    return
+            is ContactListEvent.ChangedColour -> {
+                viewModelScope.launch {
+                    event.context.dataStore.edit { preferences ->
+                        preferences[fortytwo.rgilles.ft_hangouts.common.PreferencesKeys.COLOUR_ID] = event.colourId
+                    }
                 }
-                getContacts(event.contactOrder)
-            }
-            is ContactListEvent.ToggleOrderSection -> {
-                _state.value = state.value.copy(
-                    isOrderSelectorDisplayed = !state.value.isOrderSelectorDisplayed
-                )
             }
         }
     }

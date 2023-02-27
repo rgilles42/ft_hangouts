@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -33,6 +34,7 @@ fun ContactListScreen(
     val state = viewModel.state.value
     val snackbarHostState = remember { SnackbarHostState() }
     val expanded = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
         timestampEventFlow.collectLatest { showTimestampEvent ->
@@ -58,7 +60,7 @@ fun ContactListScreen(
                     ) {
                         DropdownMenuItem(
                             text = { Text("Edit") },
-                            onClick = { /*TODO*/ }
+                            onClick = { viewModel.onEvent(ContactListEvent.ChangedColour(context, 1)) }
                         )
                     }
                 }
