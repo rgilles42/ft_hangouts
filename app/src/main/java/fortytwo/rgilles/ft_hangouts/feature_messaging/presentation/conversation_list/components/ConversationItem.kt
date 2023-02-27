@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import fortytwo.rgilles.ft_hangouts.common.domain.relations.ContactWithMessages
 import fortytwo.rgilles.ft_hangouts.feature_contacts.presentation.contact_list.components.formContactName
@@ -73,12 +74,16 @@ fun ConversationItem(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = formContactName(contactWithMessages.contact),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = formMessageText(contactWithMessages),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

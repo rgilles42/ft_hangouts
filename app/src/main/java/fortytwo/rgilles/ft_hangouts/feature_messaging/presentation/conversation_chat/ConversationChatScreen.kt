@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -98,7 +99,11 @@ fun ConversationChatScreen(
                             }
                             Spacer(modifier = Modifier.size(10.dp))
                         }
-                        Text(formContactName(contactWithMessagesState.contact))
+                        Text(
+                            formContactName(contactWithMessagesState.contact),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
