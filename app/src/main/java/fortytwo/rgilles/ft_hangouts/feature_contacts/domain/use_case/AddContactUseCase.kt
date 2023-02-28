@@ -11,13 +11,13 @@ class AddContactUseCase(
     @Throws(InvalidContactException::class)
     suspend operator fun invoke(contact: Contact) {
         if (contact.firstName.isBlank() and contact.lastName.isBlank()){
-            throw InvalidContactException("Contact name cannot be empty.")
+            throw InvalidContactException("EXCEPTION_CONTACT_NAME_EMPTY")
         }
         if (contact.phoneNumber.isNotBlank() && !Patterns.PHONE.matcher(contact.phoneNumber).matches()){
-            throw InvalidContactException("Contact phone number is invalid.")
+            throw InvalidContactException("EXCEPTION_CONTACT_PHONE_INVALID")
         }
         if (contact.email.isNotBlank() && !Patterns.EMAIL_ADDRESS.matcher(contact.email).matches()){
-            throw InvalidContactException("Contact email is invalid.")
+            throw InvalidContactException("EXCEPTION_CONTACT_EMAIL_INVALID")
         }
         repository.insertContact(contact)
     }

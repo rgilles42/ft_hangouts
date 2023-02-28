@@ -19,4 +19,12 @@
     <string name="edit_contact_last_name">Nachname</string>
     <string name="edit_contact_phone_number">Telefonnummer</string>
     <string name="edit_contact_email_address">Email Adresse</string>
+    <string name="exception_contact_name_empty">Der Kontaktname darf nicht leer sein.</string>
+    <string name="exception_contact_phone_invalid">Die Kontakttelefonnummer ist ungültig.</string>
+    <string name="exception_contact_email_invalid">Die Kontakt-Email ist ungültig.</string>
+    <string name="exception_generic_save_contact">Speichern des Kontakts fehlgeschlagen!</string>
+    <string name="exception_generic_delete_contact">Löschen des Kontakts fehlgeschlagen!</string>
+    <string name="exception_permission_denied">Die Erlaubnis zum Senden von SMS wurde verweigert.</string>
+    <string name="exception_message_empty">Der Inhalt der Nachricht darf nicht leer sein.</string>
+    <string name="exception_generic_send_message">Senden des Kontakts fehlgeschlagen!</string>
 </resources>

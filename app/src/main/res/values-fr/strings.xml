@@ -19,4 +19,12 @@
     <string name="edit_contact_last_name">Nom de famille</string>
     <string name="edit_contact_phone_number">Numéro de téléphone</string>
     <string name="edit_contact_email_address">Adresse Email</string>
+    <string name="exception_contact_name_empty">Le nom du contact ne peut pas être vide.</string>
+    <string name="exception_contact_phone_invalid">Le numéro de téléphone du contact est invalide.</string>
+    <string name="exception_contact_email_invalid">L\'adresse email du contact est invalide.</string>
+    <string name="exception_generic_save_contact">La sauvegarde du contact a échoué !</string>
+    <string name="exception_generic_delete_contact">La suppression du contact a échoué !</string>
+    <string name="exception_permission_denied">La permission d\'envoyer des SMS a été refusée.</string>
+    <string name="exception_message_empty">Le contenu du message ne peut pas être vide.</string>
+    <string name="exception_generic_send_message">L\'envoi du mesage a échoué !</string>
 </resources>

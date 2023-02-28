@@ -108,7 +108,7 @@ class DispAddEditContactViewModel @Inject constructor(
                     } catch(e: InvalidContactException) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message ?: "Couldn't save contact!"
+                                message = e.message ?: "EXCEPTION_GENERIC_SAVE_CONTACT"
                             )
                         )
                     }
@@ -131,7 +131,7 @@ class DispAddEditContactViewModel @Inject constructor(
                     } catch (e: java.lang.Exception) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message?: "Couldn't delete contact!"
+                                message = e.message?: "EXCEPTION_GENERIC_DELETE_CONTACT"
                             )
                         )
                     }

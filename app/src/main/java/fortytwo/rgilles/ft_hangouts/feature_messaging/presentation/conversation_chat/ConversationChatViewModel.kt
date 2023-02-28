@@ -57,7 +57,7 @@ class ConversationChatViewModel @Inject constructor(
                 viewModelScope.launch {
                     try {
                         if (event.context.checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
-                            throw Exception("Permission for sending SMS has been denied.")
+                            throw Exception("EXCEPTION_PERMISSION_DENIED")
                         }
                             messageUseCases.addMessage(
                                 Message(
@@ -82,7 +82,7 @@ class ConversationChatViewModel @Inject constructor(
                     } catch (e: java.lang.Exception) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message ?: "Couldn't send message!"
+                                message = e.message ?: "EXCEPTION_GENERIC_SEND_MESSAGE"
                             )
                         )
                     }

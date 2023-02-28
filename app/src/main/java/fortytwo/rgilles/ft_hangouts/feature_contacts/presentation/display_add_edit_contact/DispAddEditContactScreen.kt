@@ -71,7 +71,17 @@ fun DispAddEditContactScreen(
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
                 is DispAddEditContactViewModel.UiEvent.ShowSnackbar -> {
-                    snackbarHostState.showSnackbar(event.message)
+                    snackbarHostState.showSnackbar(
+                        when (event.message) {
+                            "EXCEPTION_CONTACT_NAME_EMPTY"      -> context.getString(R.string.exception_contact_name_empty)
+                            "EXCEPTION_CONTACT_PHONE_INVALID"   -> context.getString(R.string.exception_contact_phone_invalid)
+                            "EXCEPTION_CONTACT_EMAIL_INVALID"   -> context.getString(R.string.exception_contact_email_invalid)
+                            "EXCEPTION_GENERIC_SAVE_CONTACT"    -> context.getString(R.string.exception_generic_save_contact)
+                            "EXCEPTION_GENERIC_DELETE_CONTACT"  -> context.getString(R.string.exception_generic_delete_contact)
+                            else                                -> event.message
+                        }
+                    )
+
                 }
                 is DispAddEditContactViewModel.UiEvent.SaveContact -> {
                     navController.navigateUp()

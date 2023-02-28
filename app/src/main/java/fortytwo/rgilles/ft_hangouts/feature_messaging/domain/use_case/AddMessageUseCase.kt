@@ -10,7 +10,7 @@ class AddMessageUseCase(
     @Throws(InvalidMessageException::class)
     suspend operator fun invoke(message: Message) {
         if (message.content.isBlank()){
-            throw InvalidMessageException("Message Content cannot be empty.")
+            throw InvalidMessageException("EXCEPTION_MESSAGE_EMPTY")
         }
         repository.insertMessage(message)
     }

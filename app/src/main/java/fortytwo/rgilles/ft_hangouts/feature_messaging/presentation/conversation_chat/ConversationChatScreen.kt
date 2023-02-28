@@ -66,7 +66,14 @@ fun ConversationChatScreen(
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is ConversationChatViewModel.UiEvent.ShowSnackbar -> {
-                    snackbarHostState.showSnackbar(event.message)
+                    snackbarHostState.showSnackbar(
+                        when (event.message) {
+                            "EXCEPTION_PERMISSION_DENIED" -> context.getString(R.string.exception_permission_denied)
+                            "EXCEPTION_MESSAGE_EMPTY" -> context.getString(R.string.exception_message_empty)
+                            "EXCEPTION_GENERIC_SEND_MESSAGE" -> context.getString(R.string.exception_generic_send_message)
+                            else -> event.message
+                        }
+                    )
                 }
                 is ConversationChatViewModel.UiEvent.SendMessage -> {
                     viewModel.onEvent(ConversationChatEvent.TypedMessage(""))

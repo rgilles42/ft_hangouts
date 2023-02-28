@@ -19,4 +19,12 @@
     <string name="edit_contact_last_name">Last Name</string>
     <string name="edit_contact_phone_number">Phone Number</string>
     <string name="edit_contact_email_address">Email Address</string>
+    <string name="exception_contact_name_empty">Contact name cannot be empty.</string>
+    <string name="exception_contact_phone_invalid">Contact phone number is invalid.</string>
+    <string name="exception_contact_email_invalid">Contact email is invalid.</string>
+    <string name="exception_generic_save_contact">Couldn\'t save contact!</string>
+    <string name="exception_generic_delete_contact">Couldn\'t delete contact!</string>
+    <string name="exception_permission_denied">Permission for sending SMS has been denied.</string>
+    <string name="exception_message_empty">Message content cannot be empty.</string>
+    <string name="exception_generic_send_message">Couldn\'t send message!</string>
 </resources>
