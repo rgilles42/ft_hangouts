@@ -7,13 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessageDao {
-
-//    @Query("SELECT * FROM messages")
-//    fun         getMessages(): Flow<List<Message>>
-
     @Transaction
     @Query("SELECT * FROM contact WHERE id = :contactId")
-    fun         getContactWithMessagesByContactId(contactId: Int): Flow<ContactWithMessages> // if doesn't work replace with Flow<List<CwM>> and cope
+    fun         getContactWithMessagesByContactId(contactId: Int): Flow<ContactWithMessages>
 
     @Query("SELECT * FROM message WHERE id = :id")
     suspend fun getMessageById(id: Int): Message?

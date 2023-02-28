@@ -12,7 +12,7 @@ object PreferencesKeys {
 }
 
 val colourMap = mapOf(
-    "Material" to 0,
+    "Material Default" to 0,
     "Vivid Purple" to 0xFFAA11AA,
     "Deep Blue"     to 0xFF1188FF,
     "Vibrant Orange"  to 0xFFFF7722,

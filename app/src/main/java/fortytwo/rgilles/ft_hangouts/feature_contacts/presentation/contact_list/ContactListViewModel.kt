@@ -20,9 +20,6 @@ import javax.inject.Inject
 class ContactListViewModel @Inject constructor(
     private val contactUseCases: ContactUseCases
 ) : ViewModel() {
-    //store list of contacts
-    //store order of contacts
-    //store if order selector is displayed or not
     private val _state = mutableStateOf(ContactListState())
     val state: State<ContactListState> = _state
 
